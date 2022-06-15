@@ -1,4 +1,7 @@
-beautifulsoup4==4.11.1
-bs4==0.0.1
-Markdown==3.3.7
-soupsieve==2.3.2.post1
+Jinja2==3.1.2
+markdown2==2.4.3
+MarkupSafe==2.1.1
+python-slugify==6.1.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+text-unidecode==1.3
