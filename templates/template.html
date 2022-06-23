@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="encyclopedia.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    {% for file in css %}
+      <link rel="stylesheet" href={{ file }}>
+    {% endfor %}
+    <!--<link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
 <body>
     <!---->
@@ -26,7 +29,7 @@
           <div class="my-container">
             <!-- Main title -->
             <a class="navbar-brand float-start" href="/.">
-                <img class="brand-image" src="img/nih-header-logo-color.png" alt="NIH National Cancer Institute GDC Documentation">
+                <img class="brand-image" src="../../img/nih-header-logo-color.png" alt="NIH National Cancer Institute GDC Documentation">
                 <span class="hidden">NIH National Cancer Institute GDC Documentation</span>
             </a>
             <!-- Expander button -->
@@ -176,7 +179,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{}}
+                {{ sidebar }}
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -196,7 +199,7 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{{  }}}
+          {{ content }}
         </div>
       </div>
     </div>
