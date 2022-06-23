@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,24 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Genomic Data Commons (GDC)</h1><hr>
+<h2>Description</h2>
+<p>The National Cancer Institute's (NCI's) Genomic Data Commons (GDC)<sup>1</sup> is a next generation cancer knowledge network that supports the hosting and standardization of genomic and clinical data from cancer research programs, the harmonization of raw sequence data, and the application of state-of-the art methods for generating high level data (e.g. mutation calls, structural variants, etc.)<sup>2</sup>.</p>
+<h2>Overview</h2>
+<p>The NCI Center for Cancer Genomics (CCG) established the GDC to provide the cancer research community with a data service supporting the receipt, quality control, integration, storage, and redistribution of standardized cancer genomic data sets derived from cancer studies.</p>
+<p>The mission of the GDC is to provide the cancer research community with a unified data repository that enables data sharing across cancer genomic studies in support of precision medicine. Working towards this mission, the GDC aims to provide a cancer knowledge network that enables the identification of both high- and low-frequency cancer drivers, assists in defining genomic determinants of response to therapy, and informs the composition of clinical trial cohorts sharing targeted genetic lesions<sup>2,3,4</sup>.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov">GDC Web Site</a></li>
+<li><a href="https://gdc.cancer.gov/gdc-factsheet">GDC Fact Sheet</a></li>
+<li><a href="https://www.cancer.gov/news-events/press-releases/2014/GenomicDataCommonsNewsNote">NCI GDC Press Release</a></li>
+<li><a href="https://www.cancer.gov/news-events/press-releases/2016/genomic-data-commons-launch">NCI GDC Launch</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="http://www.chicagotribune.com/news/ct-university-chicago-cancer-data-met-20141202-story.html">University of Chicago GDC Press Release</a></li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

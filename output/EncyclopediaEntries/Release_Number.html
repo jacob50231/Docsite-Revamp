@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,23 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Release Number</h1><hr>
+<h2>Description</h2>
+<p>The release number defines the latest revision of different parts of the GDC.</p>
+<h2>Overview</h2>
+<p>The release number keeps track of new releases of the GDC.  The different parts of the GDC that may be updated and their release information (which contains the release number) are summarized below:</p>
+<ul>
+<li><strong>API</strong>: <a href="https://docs.gdc.cancer.gov/API/Release_Notes/API_Release_Notes/#api-release-notes">Release Notes</a></li>
+<li><strong>Data Portal</strong>: <a href="https://docs.gdc.cancer.gov/Data_Portal/Release_Notes/Data_Portal_Release_Notes/">Release Notes</a></li>
+<li><strong>Data Submission Portal</strong>: <a href="https://docs.gdc.cancer.gov/Data_Submission_Portal/Release_Notes/Data_Submission_Portal_Release_Notes/">Release Notes</a></li>
+<li><strong>Data Transfer Tool</strong>: <a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Release_Notes/DTT_Release_Notes/">Release Notes</a></li>
+<li><strong>Data</strong>: <a href="https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/">Release Notes</a></li>
+</ul>
+<h2>References</h2>
+<p>N/A</p>
+<h2>External Links</h2>
+<p>N/A</p>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

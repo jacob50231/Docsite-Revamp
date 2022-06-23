@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,22 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Center for Cancer Genomics (CCG)</h1><hr>
+<h2>Description</h2>
+<p>The Center for Cancer Genomics (CCG) is an organization within the National Cancer Institute (NCI) that unifies NCI's activities in cancer genomics by aiming to synthesize research in different fields of cancer genomics - structural, functional, and computational - to improve patient outcomes<sup>1</sup>.</p>
+<h2>Overview</h2>
+<p>CCG and the offices it oversees-The Cancer Genome Atlas (TCGA) and the Office of Cancer Genomics (OCG)-manage multiple programs. These offices serve to advance CCG's goal of ushering in a modern era of diagnosis, treatment, and prevention based on the study of genomes.
+CCG programs and collaborations generate cancer genomic and clinical data, and make these data available for widespread use by the research community.</p>
+<p>CCG established the NCI Genomic Data Commons (GDC) to provide the cancer research community with a data service supporting the receipt, quality control, integration, storage, and redistribution of standardized cancer genomic data sets derived from cancer studies.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://www.cancer.gov/about-nci/organization/ccg">Center for Cancer Genomics</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Introduction'>Introduction</a></li><li><a href='#Entities, Properties, and Links'>Entities, Properties, and Links</a></li><li><a href='#GDC Identifiers'>GDC Identifiers</a></li><li><a href='#Working with the GDC Data Model'>Working with the GDC Data Model</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,40 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   GDC Data Model</h1><hr>
+<h2>Introduction</h2>
+<p>The GDC Data Model is the central method of organization of all data artifacts in the GDC. An overview of the data model, including a visual representation of its components, is provided <a href="https://gdc.cancer.gov/developers/gdc-data-model">on the GDC website</a>. This section provides technical details about its implementation for data users, submitters, and developers.</p>
+<h2>Entities, Properties, and Links</h2>
+<p>Although the GDC Data Model may contain some cyclic elements, it can be helpful to think of it as a <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph (DAG)</a> composed of interconnected <strong>entities</strong>. Each entity in the GDC has a set of properties and links.</p>
+<ul>
+<li><strong>Properties</strong> are key-value pairs associated with an entity. Properties cannot be nested, which means that the value must be numerical, boolean, or a string, and cannot be another key-value set. Properties can be either required or optional. The following properties are of particular importance in constructing the GDC Data Model:<ul>
+<li><strong>Type</strong> is a required property for all entities. Entity types include <code>project</code>, <code>case</code>, <code>demographic</code>, <code>sample</code>, <code>read_group</code> and others.</li>
+<li><strong>System properties</strong> are properties used in GDC system operation and maintenance. They cannot be modified except under special circumstances.</li>
+<li><strong>Unique keys</strong> are properties, or combinations of properties, that can be used to uniquely identify the entity in the GDC. For example, the tuple (combination) of <code>[ project_id, submitter_id ]</code> is a unique key for most entities, which means that although <code>submitter_id</code> does not need to be unique in GDC, it must be unique within a project. See <a href="#gdc-identifiers">GDC Identifiers</a> below for details.</li>
+</ul>
+</li>
+<li><strong>Links</strong> define relationships between entities, and the multiplicity of those relationships (e.g. one-to-one, one-to-many, many-to-many).</li>
+</ul>
+<p>The <a href="/Data_Dictionary/">GDC Data Dictionary</a> determines which properties and links an entity can have according to entity <code>type</code>.</p>
+<p>Functionally similar entity types are grouped under the same <strong>category</strong>. For example, entity types <code>slide_image</code> and <code>submitted_unaligned_reads</code> belong to <code>data_file</code> category, which comprises entities that represent downloadable files.</p>
+<h2>GDC Identifiers</h2>
+<h3>UUIDs</h3>
+<p>When an entity is created, it is assigned a unique identifier in the form of a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">version 4 universally unique identifier (UUID)</a>. The UUID uniquely identifies the entity in the GDC, and is stored in the entity's <code>id</code> property.</p>
+<h3>Program Name, Project Code, and Project ID</h3>
+<p>Programs are the highest level of organization of GDC datasets. Each program is assigned a unique <code>program.name</code> property. Datasets within a program are organized into projects, and each project is assigned a <code>project.code</code> property.</p>
+<p>The <code>project_id</code> property is associated with most entities in the GDC data model and is generated by appending <code>project.code</code> to <code>program.name</code> as follows:</p>
+<pre><code>program.name-project.code
+(e.g. TCGA-LAML)
+</code></pre>
+<p>Note that <code>program.name</code> never contains hyphens.</p>
+<h3>Submitter ID</h3>
+<p>In addition to UUIDs stored in the <code>id</code> property, many entities also have a <code>submitter_id</code> property. This property can contain any string that the submitter wishes to use to identify the entity (e.g. a "barcode"). This can be used to identify a corresponding entry in the submitter's records. The GDC requires that <code>submitter_id</code> be unique for each entity within a project: the tuple (combination) of <code>[ project_id, submitter_id ]</code> is a unique key.</p>
+<p><strong>Note:</strong> The <code>submitter_id</code> of a <code>case</code> entity corresponds to the <code>submitted_subject_id</code> of the study participant in dbGaP records for the project.</p>
+<h2>Working with the GDC Data Model</h2>
+<h3>Data Users</h3>
+<p>Users can access information stored in the GDC Data Model using the <a href="https://gdc.cancer.gov/access-data/gdc-data-portal">GDC Data Portal</a>, the <a href="https://gdc.cancer.gov/developers/gdc-application-programming-interface-api">GDC API</a>, and the <a href="https://gdc.cancer.gov/access-data/gdc-data-transfer-tool">GDC Data Transfer Tool</a>. For more information see <a href="https://gdc.cancer.gov/access-data/data-access-processes-and-tools">Data Access Processes and Tools</a>.</p>
+<h3>Data Submitters</h3>
+<p>Data submitters can create and update submittable entities in the GDC Data Model and upload data files registered in the model using the <a href="https://gdc.cancer.gov/submit-data/gdc-data-submission-portal">GDC Data Submission Portal</a>, the <a href="https://gdc.cancer.gov/developers/gdc-application-programming-interface-api">GDC API</a>, and the <a href="https://gdc.cancer.gov/access-data/gdc-data-transfer-tool">GDC Data Transfer Tool</a>. For more information see <a href="https://gdc.cancer.gov/submit-data/data-submission-processes-and-tools">Data Submission Processes and Tools</a>.</p>
         </div>
       </div>
     </div>

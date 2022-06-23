@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Navigation'>Navigation</a></li><li><a href='#Authentication'>Authentication</a></li><li><a href='#Data Transfer Tool'>Data Transfer Tool</a></li><li><a href='#GDC Pre-Release Data Admin Portal'>GDC Pre-Release Data Admin Portal</a></li><li><a href='#AWG API'>AWG API</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,84 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Pre-Release Data Portal</h1><hr>
+<p>The <a href="https://portal.awg.gdc.cancer.gov/">GDC Pre-Release Data Portal</a> provides users with web-based access to pre-released data from cancer genomics studies that have been harmonized by the GDC, but not yet released in the main GDC Data Portal.</p>
+<h2>Navigation</h2>
+<p><a href="https://portal.awg.gdc.cancer.gov/">Pre-Release Data Portal</a> will appear similar to the GDC Active Portal, but the Pre-Release Data Portal features are a subset of what can be found in the GDC Data Portal.</p>
+<p><a href="images/AWG_Portal.png" title="Click to see the full image."><img alt="GDC Views" src="images/AWG_Portal.png" /></a></p>
+<p>For more information on any of these general features please review the <a href="/Data_Portal/Users_Guide/Getting_Started/#navigation">GDC Data Portal User Guide</a>.</p>
+<h2>Authentication</h2>
+<h3>Relationship between GDC Data Portal and Pre-Release Data Portal Tokens</h3>
+<p>The GDC Pre-Release Data Portal provides access to datasets prior to release to a group of users specified by the data submitter.  This area is only available to data submitters (or their designees) for reviewing pre-release data.  Users must be granted access as specified in the GDC Pre-Release Data Admin Portal section and have downloader access within dbGaP for the specified project. To learn more about obtaining the required credentials and authorization, see <a href="https://gdc.cancer.gov/submit-data/obtaining-access-submit-data">Obtaining Access to Submit Data</a>.</p>
+<p>The tokens used to download files from the GDC Data Portal and Pre-Release Data Portal are related but distinct. Specifically, the token generated in the Pre-Release Data Portal contains a longer version of the regular GDC Authentication Token downloaded from the GDC Data Portal. Because of this, the GDC Data Portal token will not function for downloading data from the Pre-release Data Portal environment using the Data Transfer Tool or API. However, the Pre-Release Data Portal token will function for downloading data from the GDC Data Portal using the API or Data Transfer Tool. Finally, if a new token is generated in the Pre-release Data Portal this will invalidate the token downloaded from the GDC Data Portal and vice versa.  </p>
+<h2>Data Transfer Tool</h2>
+<p>As with the GDC Data Portal, downloads of large or numerous files is best performed using the GDC Data Transfer Tool.  Information on the GDC Data Transfer Tool is available in the <a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/">GDC Data Transfer Tool User's Guide</a>.  An important distinction for use with the Pre-Release Data Portal is that it must always be used with a token and with the option <code>-s https://api.awg.gdc.cancer.gov</code>.</p>
+<h2>GDC Pre-Release Data Admin Portal</h2>
+<p>The GDC Pre-Release Data Admin Portal allows admins to create and maintain Pre-Release Data Groups and associated projects, as well as grant appropriate access to users within these groups. To gain access to the Pre-Release Data Admin Portal please contact the GDC Helpdesk (support@nci-gdc.datacommons.io).</p>
+<p><a href="images/AWG_Admin.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin.png" /></a></p>
+<p>The Pre-Release Data Admin Portal is broken into two views on the left-most panel:</p>
+<ul>
+<li><strong>Users</strong>: Allows admin to create, view, edit Pre-Release Data Portal user profiles.</li>
+<li><strong>Groups</strong>: Allows admin to manage groups projects / users.</li>
+</ul>
+<h4>Definitions</h4>
+<table class='table'>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>User</strong></td>
+<td>An individual with an eRA Commons account.</td>
+</tr>
+<tr>
+<td><strong>Project</strong></td>
+<td>A collection of files and observations that are contained in the GDC database and have been registered in dbGaP as a project. Only certain projects are designated as Pre-Release Data projects.</td>
+</tr>
+<tr>
+<td><strong>Group</strong></td>
+<td>A collection of users and projects.  When a user is assigned to a group, they will have access to the projects in that group when they login to the Pre-Release Data portal as long as they have downloader access to the project in dbGaP.</td>
+</tr>
+</tbody>
+</table>
+<h3>Users</h3>
+<p>The <strong>Users</strong> section of the GDC Pre-Release Data Admin portal allows admins to manage and create Pre-Release Data users.</p>
+<p><a href="images/AWG_Admin.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin.png" /></a></p>
+<h4>Creating Users</h4>
+<p>To create a new user in the Pre-Release Data Admin Portal, click on the <code>Create</code> button on the far-right panel.</p>
+<p><a href="images/AWG_Admin_Create_User.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin_Create_User.png" /></a></p>
+<p>Then the following information must be supplied, before clicking the <code>Save</code> button:</p>
+<ul>
+<li><strong>eRA Commons ID</strong>: The eRA Commons ID of the user to be added.</li>
+<li><strong>Role</strong>: Choose between <code>Admin</code> or <code>User</code> roles.</li>
+<li><strong>Group (Optional)</strong>: Choose existing groups to add the user to.</li>
+</ul>
+<p>After clicking <code>Save</code>, the user should appear in the list of users in the center panel.  Also clicking on the user in the list will display information about that user and gives the options to <code>Edit</code> the user profile, or <code>Delete</code> the user.</p>
+<p><a href="images/AWG_Admin_New_User.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin_New_User.png" /></a></p>
+<h3>Groups</h3>
+<p>The <strong>Groups</strong> section of the GDC Pre-Release Data Admin portal allows admins to manage and create groups for which users and projects may be added.</p>
+<p><a href="images/AWG_Admin_Group.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin_Group.png" /></a></p>
+<h4>Creating Groups</h4>
+<p>To create a new group in the Pre-Release Data Admin Portal, click on the <code>Create</code> button on the far-right panel.</p>
+<p><a href="images/AWG_Admin_Groups_Add.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin_Groups_Add.png" /></a></p>
+<p>Then the following information must be supplied, before clicking the <code>Save</code> button:</p>
+<ul>
+<li><strong>Name</strong>: The name of the group.</li>
+<li><strong>Description</strong>: The description of the group.</li>
+<li><strong>Users (Optional)</strong>: Choose existing users to add to the group.</li>
+<li><strong>Projects(Optional)</strong>: Choose existing projects to add to the group.</li>
+</ul>
+<p>After clicking <code>Save</code>, the group should appear in the list of groups in the center panel.  Also clicking on the group in the list will display information about that group and gives the options to <code>Edit</code> or <code>Delete</code> the group.</p>
+<p><a href="images/AWG_Admin_New_Group.png" title="Click to see the full image."><img alt="GDC Pre-Release Data Portal Main Page" src="images/AWG_Admin_New_Group.png" /></a></p>
+<h2>AWG API</h2>
+<p>API functionality is similar to what is available for the main GDC Data Portal.  You can read more about the GDC API in general in the <a href="/API/Users_Guide/Getting_Started/">API User Guide</a>.  Important differences for the Analysis Working Group (AWG) API include the following:</p>
+<ul>
+<li>The base URL is different. Instead use https://api.awg.gdc.cancer.gov/</li>
+<li>An authorization token must always be passed with every query rather than just for downloading controlled access data.</li>
+</ul>
         </div>
       </div>
     </div>

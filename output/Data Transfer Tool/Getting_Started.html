@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#The GDC Data Transfer Tool: An Overview'>The GDC Data Transfer Tool: An Overview</a></li><li><a href='#Downloading the GDC Data Transfer Tool'>Downloading the GDC Data Transfer Tool</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,23 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Getting Started</h1><hr>
+<h2>The GDC Data Transfer Tool: An Overview</h2>
+<p>Raw sequence data, stored as BAM files, make up the bulk of data stored at the NCI Genomic Data Commons (GDC). The size of a single file can vary greatly. Most BAM files stored in the GDC are in the 50 MB - 40 GB size range, with some of the whole genome BAM files reaching sizes of 200-300 GB.</p>
+<p>The GDC Data Transfer Tool, a command-line driven application, provides an optimized method of transferring data to and from the GDC and enables resumption of interrupted transfers.</p>
+<h2>Downloading the GDC Data Transfer Tool</h2>
+<h3>System Recommendations</h3>
+<p>The system recommendations for using the GDC Data Transfer Tool are as follows:</p>
+<ul>
+<li>OS: Linux (Ubuntu 16.x or later), OS X (10.9 Mavericks or later), or Windows (8 or later)</li>
+<li>CPU: At least two 64-bit cores, Intel or AMD</li>
+<li>RAM: At least 8 GiB</li>
+<li>Storage: Enterprise-class storage system capable of at least 1 Gb/s (gigabit per second) write throughput and sufficient free space for BAM files.</li>
+</ul>
+<h3>Binary Distributions</h3>
+<p>Binary distributions are available on the <a href="https://gdc.cancer.gov/access-data/gdc-data-transfer-tool">GDC Transfer Tool page</a>. To install the GDC Data Transfer Tool, download the respective binary distribution and unzip the distribution's archive to a location on the target system. It is recommended that the binary be copied to a located that is in the user's path so that is it accessible from any location within the terminal or command prompt.   </p>
+<h3>Release Notes</h3>
+<p>Release Notes are available on the <a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Release_Notes/DTT_Release_Notes">GDC Data Transfer Tool Release Notes</a> Page.</p>
         </div>
       </div>
     </div>

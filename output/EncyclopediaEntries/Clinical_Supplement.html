@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,25 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Clinical Supplement</h1><hr>
+<h2>Description</h2>
+<p>The purpose of a clinical supplement file is to make available clinical information that does not fit into the GDC Data Dictionary.</p>
+<h2>Overview</h2>
+<p>The GDC Data Dictionary has an extensive set of clinical elements<sup>1</sup>. However, due to the number and variety of submitting projects the GDC is not able to accommodate all possible clinical elements into the GDC Data Dictionary. The clinical supplement offers a way for submitters to include all existing clinical data even though it may not conform to the GDC Data Dictionary. Note that the content of these files is not searchable via the API, does not fit the GDC Data Dictionary, and may use different CDEs and vocabulary than other projects stored in the GDC.  </p>
+<p>For example, whether or not a patient has mutations in the ER, PR and HER2 genes is very important when researching breast cancer. This information would not be very useful in most other cancers, so it can be found in the clinical supplement files for breast cancer patients rather than being incorporated into the data model across all cancers.</p>
+<p>While some elements are unique to certain cancers, there is no guarantee that all patients associated with these cancers will have all elements populated.</p>
+<h3>Data Formats</h3>
+<p>Clinical Supplement files are available in the GDC Data Portal as case-level XML files. Most elements have an associated CDE-ID that can be queried at the CDE Browser website for additional information<sup>2</sup>.  </p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/about-data/data-harmonization-and-generation/clinical-data-harmonization">GDC Clinical Data Elements</a></li>
+<li><a href="https://cdebrowser.nci.nih.gov/cdebrowserClient/cdeBrowser.html#/search">CDE Browser</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: Data Type</p>
         </div>
       </div>
     </div>

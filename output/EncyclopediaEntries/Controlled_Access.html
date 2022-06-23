@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,22 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Controlled Access</h1><hr>
+<h2>Description</h2>
+<p>Data in the GDC is considered either open or controlled access.  Access to controlled-access (i.e. protected) data in the GDC is granted on a per project basis via dbGaP.</p>
+<h2>Overview</h2>
+<p>While much of the data in the GDC is open access, many file types are controlled access. This primarily includes raw sequencing data such as BAM or FASTQ files as well as VCF files and protected MAF files. The informed consent under which the data or samples were collected is the basis for the submitting institution to determine whether the data should be available through unrestricted or controlled access. To gain access to these files a user must apply for access via dbGaP to individual projects<sup>1</sup>. Each project has a Data Access Committee (DAC) that will approve or disapprove data access requests.  Before gaining access through dbGaP users also need to obtain an eRA Commons ID for authentication purposes<sup>2</sup>.  </p>
+<p>Genomic data access is governed by the NIH's Genomic Data Sharing Policy.  </p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/access-data/obtaining-access-controlled-data">GDC Granting Access to Controlled Data</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="https://gds.nih.gov/03policy2.html">NIH Genomic Data Sharing Policy</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/gap">dbGaP</a></li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

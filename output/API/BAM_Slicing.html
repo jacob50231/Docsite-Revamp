@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#About the slicing endpoint'>About the slicing endpoint</a></li><li><a href='#Examples: Specifying a region'>Examples: Specifying a region</a></li><li><a href='#Examples: Specifying a gene'>Examples: Specifying a gene</a></li><li><a href='#Examples: Specifying unmapped reads'>Examples: Specifying unmapped reads</a></li><li><a href='#Errors'>Errors</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,191 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   BAM Slicing</h1><hr>
+<p>The GDC API provides remote BAM slicing functionality that enables downloading of specific parts of a BAM file instead of the whole file. This functionality can be accessed at the <code>slicing</code> endpoint, using a syntax similar to that of widely used bioinformatics tools such as <code>samtools</code>.</p>
+<h2>About the slicing endpoint</h2>
+<p>The <code>slicing</code> endpoint accepts HTTP GET requests in the form of a URL, and HTTP POST requests that carry a JSON payload. POST requests are more appropriate in cases where query parameters make the GET URL very long.</p>
+<p>The response will be a BAM-formatted file containing the header of the source BAM file, as well as any alignment records that are found to overlap the specified regions, sorted by chromosomal coordinate.</p>
+<p>Please note the following:</p>
+<ul>
+<li>The functionality of this API differs from the usual functionality of <code>samtools</code> in that alignment records that overlap multiple regions will not be returned multiple times.</li>
+<li>A request with no region or gene specified will return the BAM header, which makes it easy to inspect the references to which the alignment records were aligned.</li>
+<li>A request for regions that are not included in the source BAM is not considered an error, and is treated the same as if no records existed for the region.</li>
+<li>Examples provided for BAM slicing functionality are intended for use with GDC harmonized data (i.e. BAM files available in the GDC Data Portal). Slicing of unharmonized BAM files (i.e. BAM files in the GDC Legacy Portal) is not supported.</li>
+<li>Bam slicing does not create an associated bam index (.bai) file.  For applications requiring a .bai file users will need to generate this file from the bam slice using a tool and command such as <code>samtools index</code>.</li>
+</ul>
+<h3>Query Parameters</h3>
+<p>The following query parameters and JSON fields are supported:</p>
+<table class='table'>
+<thead>
+<tr>
+<th>Description</th>
+<th>Query Parameter</th>
+<th>JSON Field</th>
+<th>Query format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>entire chromosome, or a position or region on the chromosome, specified using chromosomal coordinates</td>
+<td>region</td>
+<td>regions</td>
+<td>region=<chr>(:<start>(-<stop>)?)?</stop></start></chr></td>
+</tr>
+<tr>
+<td>region specified using a <a href="http://www.genenames.org/">HGNC</a> / <a href="http://www.gencodegenes.org/">GENCODE v22</a> gene name</td>
+<td>gencode</td>
+<td>gencode</td>
+<td>gencode=<gene_name></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>NOTE:</strong> The successfully sliced BAM will contain all reads that overlap (entirely or partially) with the specified region or gene. It is possible to specify an open-ended region, e.g. <code>chr2:10000</code>, which would return all reads that (completely or partially) overlap with the region of chromosome 2 from position 10,000 to the end of the chromosome.</p>
+</blockquote>
+<h3>JSON Schema</h3>
+<p>JSON payloads can be syntactically verified using the following JSON schema:</p>
+<pre><code>{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9]+(:([0-9]+)?(-[0-9]+)?)?$"
+      }
+    },
+    "gencode": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+</code></pre>
+<h2>Examples: Specifying a region</h2>
+<p>The following two requests are examples of BAM slicing using region(s).</p>
+<pre><code class="language-Regions_GET">
+token=$(&lt;gdc-token-text-file.txt)
+
+curl --header &quot;X-Auth-Token: $token&quot; 'https://api.gdc.cancer.gov/slicing/view/df80679e-c4d3-487b-934c-fcc782e5d46e?region=chr1&amp;region=chr2:10000&amp;region=chr3:10000-20000' --output get_regions_slice.bam
+</code></pre>
+<pre><code class="language-Regions_POST_Payload">{
+    &quot;regions&quot;: [
+        &quot;chr1&quot;,
+        &quot;chr2:10000&quot;,
+        &quot;chr3:10000-20000&quot;
+    ]
+}
+</code></pre>
+<pre><code class="language-Regions_POST">token=$(&lt;gdc-token-text-file.txt)
+
+curl --header &quot;X-Auth-Token: $token&quot; --request POST https://api.gdc.cancer.gov/slicing/view/9ca90dfa-e62f-4f9c-9946-dfcecfd3ca4d --header &quot;Content-Type: application/json&quot; -d@Payload --output post_regions_slice.bam
+</code></pre>
+<pre><code class="language-Response">Response:
+HTTP/1.1 206
+
+&lt;bam_data_stream&gt;
+</code></pre>
+<h2>Examples: Specifying a gene</h2>
+<p>The following two requests are examples of BAM slicing using HGNC / GENCODE v22 gene name(s).</p>
+<pre><code class="language-Gencode_GET">token=$(&lt;gdc-token-text-file.txt)
+
+curl --header &quot;X-Auth-Token: $token&quot; 'https://api.gdc.cancer.gov/slicing/view/df80679e-c4d3-487b-934c-fcc782e5d46e?gencode=BRCA1' --output get_brca1_slice.bam
+</code></pre>
+<pre><code class="language-Gencode_POST_Payload">{
+    &quot;gencode&quot;: [
+        &quot;BRCA1&quot;,
+        &quot;BRCA2&quot;
+    ]
+}
+</code></pre>
+<pre><code class="language-Gencode_POST">curl --header &quot;X-Auth-Token: $token&quot; --request POST https://api.gdc.cancer.gov/slicing/view/df80679e-c4d3-487b-934c-fcc782e5d46e --header &quot;Content-Type: application/json&quot; -d@Payload --output post_brca12_slice.bam
+</code></pre>
+<pre><code class="language-Response">Response:
+HTTP/1.1 206
+
+&lt;bam_data_stream&gt;
+</code></pre>
+<h2>Examples: Specifying unmapped reads</h2>
+<p>Unmapped reads are found in GDC BAM files. You may request these reads by using the following commands.</p>
+<pre><code class="language-GET">token=$(&lt;gdc-token-text-file.txt)
+
+curl --header &quot;X-Auth-Token: $token&quot; 'https://api.gdc.cancer.gov/slicing/view/dc87e1b8-d8b7-4837-88ea-fb7f017b3c69?region=unmapped' --output get_regions_slice.bam
+</code></pre>
+<pre><code class="language-POST_Payload">{
+    &quot;regions&quot;: [
+        &quot;unmapped&quot;
+    ]
+}
+</code></pre>
+<pre><code class="language-POST">curl --header &quot;X-Auth-Token: $token&quot; --request POST https://api.gdc.cancer.gov/slicing/view/dc87e1b8-d8b7-4837-88ea-fb7f017b3c69 --header &quot;Content-Type: application/json&quot; -d@Payload --output get_regions_slice.bam
+</code></pre>
+<pre><code class="language-Response">Response:
+HTTP/1.1 206
+
+&lt;bam_data_stream&gt;
+</code></pre>
+<p>After downloading, the sliced BAM file can be converted to SAM using the following command if <code>samtools</code> is installed on the user's system:</p>
+<pre><code>samtools view -h brca1_slice.bam -o brca1_slice.sam
+</code></pre>
+<h2>Errors</h2>
+<p>When slicing cannot be performed, the GDC API will provide JSON error responses and HTTP error codes.</p>
+<h3>JSON Error Responses</h3>
+<p>JSON error responses have the following structure:</p>
+<pre><code>{
+    "error": "&lt;error-message&gt;"
+}
+</code></pre>
+<p>For example, when making a request for a protected BAM without supplying a GDC authentication token:</p>
+<pre><code class="language-Shell">curl https://api.gdc.cancer.gov/v0/slicing/view/15b0bf8e-ff20-41ab-8366-a495c11b30be
+</code></pre>
+<pre><code class="language-Response">HTTP/1.1 403 FORBIDDEN
+{
+    &quot;error&quot;: &quot;Please specify a X-Auth-Token&quot;
+}
+</code></pre>
+<h3>HTTP error codes</h3>
+<p>Potential HTTP error codes include:</p>
+<table class='table'>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- The regions specified are malformed</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized -- The user could not be authenticated</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized -- The user is not authorized for access to the source BAM</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- No BAM is specified</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- No BAM can be found for the specified GDC BAM ID</td>
+</tr>
+<tr>
+<td>504</td>
+<td>BAI Not Found -- No BAI can be found for the BAM</td>
+</tr>
+</tbody>
+</table>
+<h3>Transfer Errors</h3>
+<p>In the case that an error occurs during transfer of the resulting BAM, the BGZF EOF marker will not be present. This early truncation of the BAM file will cause errors if the file is used as input to other programs. For example, <code>samtools</code> will provide the error "EOF marker is absent".</p>
+<p>Early truncation can arise when connection is interrupted or when slicing fails due to BAM corruption.</p>
         </div>
       </div>
     </div>

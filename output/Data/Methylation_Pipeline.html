@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Methylation Array Harmonization Workflow'>Methylation Array Harmonization Workflow</a></li><li><a href='#Methylation Liftover Pipeline'>Methylation Liftover Pipeline</a></li><li><a href='#File Access and Availability'>File Access and Availability</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,164 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Methylation Analysis</h1><hr>
+<h2>Methylation Array Harmonization Workflow</h2>
+<h3>Introduction</h3>
+<p>The <a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=methylation_array_harmonization_workflow">Methylation Array Harmonization Workflow</a> uses raw methylation array data from multiple generations of Illumina Infinium DNA methylation arrays, namely Human Methylation 27 (HM27), HumanMethylation 450 (HM450) and EPIC platforms, to measure the level of methylation at known CpG sites as beta values, calculated from array intensities (Level 2 data) as Beta = M/(M+U). This differs from the <a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=methylation_liftover_workflow">Methylation Liftover Pipeline</a> in that the raw methylation array data is used instead of submitted methylation beta values, and the data is processed through the software package <a href="https://github.com/zwdzwd/sesame">SeSAMe</a>[1]. Additionally, the analysis results from the Methylation Array Harmonization Workflow are expected to be of higher quality than results from the Methylation Liftover Pipeline.</p>
+<p>SeSAMe offers correction to detection failures that occur in other DNA methylation array software commonly due to germline and somatic deletions by utilizing a novel way to calculate the significance of detected signals in methylation arrays. By correcting for these artifacts as well as other improvements to DNA methylation data processing, SeSAMe improves upon detection calling and quality control of processed DNA methylation data. SeSAMe output files include: two Masked Methylation Array IDAT files, one for each color channel, that contains channel data from a raw methylation array after masking potential genotyping information; and a subsequent Methylation Beta Value TXT file derived from the two Masked Methylation Array IDAT files, that displays the calculated methylation beta value for CpG sites.</p>
+<h3>SeSAMe Methylation Beta Values File Format</h3>
+<p>Descriptions for fields present in GDC Harmonized Methylation Beta Values File are detailed below:</p>
+<table class='table'>
+<thead>
+<tr>
+<th>Field</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Composite Element</td>
+<td>A unique ID for the array probe associated with a CpG site</td>
+</tr>
+<tr>
+<td>Beta Value</td>
+<td>Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table class='table'>
+<thead>
+<tr>
+<th>I/O</th>
+<th>Entity</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=raw_methylation_array">Raw Methylation Array</a></td>
+<td>IDAT</td>
+</tr>
+<tr>
+<td>Output</td>
+<td><a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=masked_methylation_array">Masked Methylation Array</a></td>
+<td>IDAT</td>
+</tr>
+<tr>
+<td>Output</td>
+<td><a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=methylation_beta_value">Methylation Beta Values</a></td>
+<td>TXT</td>
+</tr>
+</tbody>
+</table>
+<h2>Methylation Liftover Pipeline</h2>
+<h3>Note: as of Data Release 32, Methylation Liftover files are no longer supported and do not appear in the GDC Data Portal.</h3>
+<h3>Introduction</h3>
+<p>The <a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=methylation_liftover_workflow">DNA Methylation Liftover Pipeline</a> uses data from the Illumina Infinium Human Methylation 27 (HM27) and HumanMethylation450 (HM450) arrays to measure the level of methylation at known CpG sites as beta values, calculated from array intensities (Level 2 data) as Beta = M/(M+U).</p>
+<p>Using probe sequence information provided in the manufacturer's manifest, HM27 and HM450 probes were remapped to the GRCh38 reference genome [2]. Type II probes with a mapping quality of &lt;10, or Type I probes for which the methylated and unmethylated probes map to different locations in the genome, and/or had a mapping quality of &lt;10, had an entry of '*' for the 'chr' field, and '-1' for coordinates. These coordinates were then used to identify the associated transcripts from GENCODE v22, the associated CpG island (CGI), and the CpG sites' distance from each of these features. Multiple transcripts overlapping the target CpG were separated with semicolons. Beta values were inherited from existing TCGA Level 3 DNA methylation data (hg19-based) based on Probe IDs.</p>
+<h3>Methylation Liftover Pipeline Table Format</h3>
+<table class='table'>
+<thead>
+<tr>
+<th>Field</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Composite Element</td>
+<td>A unique ID for the array probe associated with a CpG site</td>
+</tr>
+<tr>
+<td>Beta Value</td>
+<td>Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)</td>
+</tr>
+<tr>
+<td>Chromosome</td>
+<td>The chromosome in which the probe binding site is located</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>The start of the CpG site on the chromosome</td>
+</tr>
+<tr>
+<td>End</td>
+<td>The end of the CpG site on the chromosome</td>
+</tr>
+<tr>
+<td>Gene Symbol</td>
+<td>The symbol for genes associated with the CpG site. Genes that fall within 1,500 bp upstream of the transcription start site (TSS) to the end of the gene body are used.</td>
+</tr>
+<tr>
+<td>Gene Type</td>
+<td>A general classification for each gene (e.g. protein coding, miRNA, pseudogene)</td>
+</tr>
+<tr>
+<td>Transcript ID</td>
+<td>Ensembl transcript IDs for each transcript associated with the genes detailed above</td>
+</tr>
+<tr>
+<td>Position to TSS</td>
+<td>Distance in base pairs from the CpG site to each associated transcript's start site</td>
+</tr>
+<tr>
+<td>CGI Coordinate</td>
+<td>The start and end coordinates of the CpG island associated with the CpG site</td>
+</tr>
+<tr>
+<td>Feature Type</td>
+<td>The position of the CpG site in reference to the island: Island, N_Shore or S_Shore (0-2 kb upstream or downstream from CGI), or N_Shelf or S_Shelf (2-4 kbp upstream or downstream from CGI)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table class='table'>
+<thead>
+<tr>
+<th>I/O</th>
+<th>Entity</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=submitted_methylation_beta_value">Submitted Methylation Beta Values</a></td>
+<td>TXT</td>
+</tr>
+<tr>
+<td>Output</td>
+<td><a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=methylation_beta_value">Methylation Beta Values</a> or <a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=masked_methylation_array">Masked Methylation Array</a></td>
+<td>TXT/IDAT</td>
+</tr>
+</tbody>
+</table>
+<h2>File Access and Availability</h2>
+<table class='table'>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Methylation Beta Value</td>
+<td>A table that associates array probes with CpG sites and associated metadata.</td>
+<td>TXT</td>
+</tr>
+<tr>
+<td>Masked Methylation Array</td>
+<td>A data file that contains channel data from a raw methylation array after masking of potential genotyping information.</td>
+<td>IDAT</td>
+</tr>
+</tbody>
+</table>
+<p>[1]. Zhou, Wanding, Triche Timothy J., Laird Peter W. and Shen Hui. "SeSAMe: Reducing artifactual detection of DNA methylation by Infinium BeadChips in genomic deletions." Nucleic Acids Research. (2018): doi: 10.1093/nar/gky691</p>
+<p>[2]. Zhou, Wanding, Laird Peter L., and Hui Shen. "Comprehensive characterization, annotation and innovative use of Infinium DNA methylation BeadChip probes." Nucleic Acids Research. (2016): doi: 10.1093/nar/gkw967</p>
         </div>
       </div>
     </div>

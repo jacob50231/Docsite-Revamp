@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,34 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   HTSeq-FPKM</h1><hr>
+<h2>Description</h2>
+<p>Fragments Per Kilobase of transcript per Million mapped reads (FPKM) is a simple expression level normalization method. The FPKM normalizes read count based on gene length and the total number of mapped reads.  </p>
+<h2>Overview</h2>
+<p>FPKM is implemented at the GDC on gene-level read counts that are produced by HTSeq<sup>1</sup> and generated using custom scripts<sup>2</sup>. The formula used to generate FPKM values is as follows:</p>
+<p>FPKM = [RM<sub>g</sub> * 10<sup>9</sup> ] / [RM<sub>t</sub> * L]</p>
+<ul>
+<li>RM<sub>g</sub>: The number of reads mapped to the gene</li>
+<li>RM<sub>t</sub>: The total number of read mapped to protein-coding sequences in the alignment</li>
+<li>L: The length of the gene in base pairs</li>
+</ul>
+<p>The scalar (10<sup>9</sup>) is added to normalize the data to "<strong>kilo</strong> base" and "<strong>million</strong> mapped reads."</p>
+<p>Like <a href="HTSeq-Counts.md">HTSeq - count</a> files, FPKM files are available as tab delimited files with the Ensembl gene IDs in the first column and the expression values in the second. See <a href="HTSeq-FPKM-UQ.md">HTSeq-FPKM-UQ</a> for an alternative method of gene expression level normalization.</p>
+<h3>Tools</h3>
+<ol>
+<li><a href="http://htseq.readthedocs.io/">HTSeq Website</a></li>
+</ol>
+<h2>References</h2>
+<ol>
+<li>Anders, S., Pyl, P.T. and Huber, W., 2014. HTSeq-a Python framework to work with high-throughput sequencing data. Bioinformatics, p.btu638.</li>
+<li><a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/">GDC mRNA-Seq Documentation</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="http://www.ensembl.org/Homo_sapiens/Info/Annotation">Ensembl Human Genome</a></li>
+<li><a href="https://www.gencodegenes.org/human/release_22.html">GENCODE 22</a></li>
+</ul>
+<p>Categories: Workflow Type</p>
         </div>
       </div>
     </div>

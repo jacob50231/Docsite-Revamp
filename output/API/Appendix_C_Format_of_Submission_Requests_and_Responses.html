@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Status Messages'>Status Messages</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,97 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Appendix C: Format of Submission Requests and Responses</h1><hr>
+<h3>Format of Submission Request</h3>
+<p>The general format of JSON objects submitted to the GDC API is as follows:</p>
+<pre><code>{
+    "type": string,
+    "id": string,
+    "submitter_id": string,
+    "&lt;properties&gt;": any type,
+    "&lt;relationship_name&gt;": [
+        {
+            "id": string,
+            "submitter_id": string
+        },
+        ...
+    ]
+}
+</code></pre>
+<p>The request must specify either an <code>id</code> or a <code>submitter_id</code>.</p>
+<p><strong><code>id</code></strong>: A string specifying the <code>id</code> of the node that the user is creating or updating. This is the persistent GDC UUID4 for the node. If it is preferred to refer to the node using a custom id, users can do so with the <code>submitter_id</code> field (described below).</p>
+<p><strong><code>submitter_id</code></strong>: A string specifying the custom id of the object the user is creating or updating. This is not the official GDC ID for the node.</p>
+<p><strong><code>&lt;properties&gt;</code></strong>: These key-value pairs will be applied to properties on the referenced node.</p>
+<p><strong><code>&lt;relationship_name&gt;</code></strong>: A JSON object that specifies a relationship (link) between the node and other nodes. Links are typically established using the <code>submitter_id</code> or <code>id</code> of the neighboring node.</p>
+<h3>Format of API Response to a Submission Request</h3>
+<p>The following fields are included in all API responses to submission requests.</p>
+<pre><code>{
+  "cases_related_to_created_entities_count": int,
+  "cases_related_to_updated_entities_count": int,
+  "code": int,
+  "created_entity_count": int,
+  "entities": [entities],
+  "entity_error_count": int,
+  "message": string,
+  "success": boolean,
+  "transaction_id": string,
+  "transactional_error_count": int,
+  "transactional_errors": [transactional_errors],
+  "updated_entity_count": int
+}
+</code></pre>
+<p><strong><code>cases_related_to_created_entities_count</code></strong>: Number of cases related to the created entities.</p>
+<p><strong><code>cases_related_to_updated_entities_count</code></strong>: Number of cases related to the updated entities.</p>
+<p><strong><code>code</code></strong>: The HTTP status code of the response message.</p>
+<p><strong><code>created_entity_count</code></strong>: Number of entities created.</p>
+<p><strong><code>entities</code></strong>: A list of entities of the form:</p>
+<pre><code>{
+  "action": string,
+  "errors": [entity_errors],
+  "id": string,
+  "related_cases": [object],
+  "type": string,
+  "unique_keys": [unique_keys],
+  "valid": boolean,
+  "warnings": [object]
+}
+</code></pre>
+<p><em><code>entity_errors</code></em>: A list of errors that occurred while parsing, validating, or performing a CRUD operation on a
+specific entity. Entity errors are of the form:</p>
+<pre><code>{
+    "keys": [string],
+    "message": string
+}
+</code></pre>
+<p><em><code>unique_keys</code></em>: Properties, or combinations of properties, that can be used to uniquely identify the node in the GDC.  Unique_keys are of the form:</p>
+<pre><code>{
+    "project_id": string,
+    "submitter_id": string
+}
+</code></pre>
+<p><strong><code>entity_error_count</code></strong>: Number of entities that were not successful.</p>
+<p><strong><code>message</code></strong>: A human-readable message describing the transaction.</p>
+<p><strong><code>success</code></strong>: A boolean value stating whether the transaction was successful. If the value is False, then no changes will be made to the database.</p>
+<p><strong><code>transaction_id</code></strong>: A string specifying the transaction id.</p>
+<p><strong><code>transactional_error_count</code></strong>: Number of transactional errors that occurred.</p>
+<p><strong><code>transactional_errors</code></strong>: A list of transactional errors that have occurred. These errors are errors that are not specific to an individual entity. Transactional errors are of the form:</p>
+<pre><code>{
+    "message": string
+}
+</code></pre>
+<p><strong><code>updated_entity_count</code></strong>: Number of existing entities updated by the transaction.</p>
+<h3>Error Types</h3>
+<p><strong><code>EntityNotFoundError</code></strong> A referenced entity was not found among existing entities and entities specified in the transaction.</p>
+<p><strong><code>MissingPropertyError</code></strong> A required property was not provided.</p>
+<p><strong><code>ValidationError</code></strong> A provided property did not pass a validation test.</p>
+<h2>Status Messages</h2>
+<p>API responses will contain a status for each entity specified in the request:</p>
+<p><strong><code>success</code></strong>: The desired transaction was sucessful and the entity's state was modified in the GDC.</p>
+<p><strong><code>valid</code></strong>: The desired transaction was not sucessful, but the trasaction was not aborted because of this entity.</p>
+<p><strong><code>error</code></strong>: The desired transaction was not sucessful, and the transaction was aborted because of this entity. This entity did not pass validation or an internal error occured when attempting to complete the transaction. The error state will be accompanied by a list of errors recorded about the entity (see label-error-messages).</p>
+<blockquote>
+<p><strong>Note:</strong> GDC API requests are transactional. An error with processing a node specified in the transaction will abort the transaction and will result in no changes being applied for any node involved in the transaction.</p>
+</blockquote>
         </div>
       </div>
     </div>

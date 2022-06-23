@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,21 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Mutation Annotation Format (MAF)</h1><hr>
+<h2>Description</h2>
+<p>Mutation Annotation Format (MAF) files are tab-delimited files that contain somatic and/or germline mutation annotations. MAF files containing any germline mutation annotations are protected and distributed in the controlled access portion of the GDC Data Portal. MAF files containing only somatic mutations are publicly available.</p>
+<h2>Overview</h2>
+<p>Variants are discovered by aligning DNA sequences derived from tumor samples and sequences derived from normal samples to a reference sequence<sup>1</sup>. A MAF file identifies, for all samples in a project, the discovered putative or validated mutations and categorizes those mutations (polymorphism, deletion, or insertion) as somatic (originating in the tumor tissue) or germline (originating from the germline). Mutation annotation are also reported. Note that VCF files report on all transcripts affected by a mutation while MAF files only report on the most affected one.  </p>
+<p>MAF files are generated at the GDC using the Variant Aggregation pipeline<sup>2</sup> by aggregating case-level VCF files on a project and pipeline level (one protected MAF per project per pipeline). Protected MAF files are further processed into open-access somatic MAF files by removing low quality or germline mutations.</p>
+<h3>Structure</h3>
+<p>The structure of the MAF is available in the <a href="https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/">GDC MAF Specification</a> along with descriptions for each field<sup>3</sup>.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/DNA_Seq_Variant_Calling_Pipeline/">GDC DNA-Seq Analysis</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=somatic_aggregation_workflow">GDC-Dictionary: Somatic Aggregation Pipeline</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Encyclopedia/pages/Mutation_Annotation_Format_TCGAv2/">GDC MAF TCGA (Legacy) Format </a></li>
+</ol>
+<p>Categories: Data Format</p>
         </div>
       </div>
     </div>

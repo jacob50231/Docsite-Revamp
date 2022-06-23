@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,22 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Database of Genotypes and Phenotypes (dbGaP)</h1><hr>
+<h2>Description</h2>
+<p>The Database of Genotypes and Phenotypes (dbGaP) is the National Institutes of Health (NIH) sponsored repository charged to archive, curate and distribute information produced by studies investigating the interaction of genotype and phenotype.</p>
+<h2>Overview</h2>
+<p>The dbGaP project serves as an access gateway for researchers seeking to gain access to genotype and phenotype data. The GDC stores and distributes data that is considered "controlled access", meaning it contains some genotype information.  Because of this researchers need to apply for access with dbGaP to gain access to projects<sup>1,2</sup>. An eRA Commons or NIH iTrust account is needed to authenticate the user. The same process is true for data submission when it contains genotype data. A new project is created in dbGaP and access to granted to their eRA Commons ID.        </p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/access-data/obtaining-access-controlled-data">Obtaining Access to Controlled Data</a></li>
+<li><a href="https://gdc.cancer.gov/access-data/obtaining-access-controlled-data/registering-and-working-era-commons-and-dbgap">Registering and Working with eRA Commons and dbGaP</a>  </li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/gap">dbGaP Home Page</a></li>
+<li><a href="https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login">dbGaP Authorized Access</a></li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,26 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Variant Type</h1><hr>
+<h2>Description</h2>
+<p>Variant callers identify multiple types of variants.  The type of variant can be reported in a VCF or MAF formatted file.</p>
+<h2>Overview</h2>
+<p>Variant type is reported by the GDC MAF file in a column named <code>Variant_Type</code> (column 10)<sup>1</sup>. The following variant types are reported:</p>
+<ul>
+<li><strong>SNP:</strong> Single nucleotide polymorphism -- a substitution in one nucleotide</li>
+<li><strong>DNP:</strong> Double nucleotide polymorphism -- a substitution in two consecutive nucleotides</li>
+<li><strong>TNP:</strong> Triple nucleotide polymorphism -- a substitution in three consecutive nucleotides</li>
+<li><strong>ONP:</strong> Oligo-nucleotide polymorphism -- a substitution in more than three consecutive nucleotides</li>
+<li><strong>INS:</strong> Insertion -- the addition of nucleotides</li>
+<li><strong>DEL:</strong> Deletion -- the removal of  nucleotides</li>
+</ul>
+<h2>References</h2>
+<p>1.<a href="https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/">GDC MAF File Format</a></p>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

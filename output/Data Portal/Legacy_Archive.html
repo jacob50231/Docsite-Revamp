@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Overview'>Overview</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,28 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Legacy Archive</h1><hr>
+<p>The GDC Legacy Archive hosts unharmonized legacy data from repositories that predate the GDC (e.g. CGHub). Legacy data is not actively maintained, processed, or harmonized by the GDC. Legacy users are encouraged to migrate to harmonized datasets.</p>
+<p>The GDC Legacy Archive can be accessed from the GDC Data Portal front page as well as from the "GDC Apps" menu.</p>
+<p><a href="images/gdc-data-portal-gdc-apps-archive.png" title="Click to see the full image."><img alt="GDC apps archive" src="images/gdc-data-portal-gdc-apps-archive.png" /></a></p>
+<h2>Overview</h2>
+<p>The GDC Legacy Archive contains a limited set of features of the GDC Data Portal:</p>
+<ul>
+<li><strong>Facet search</strong>: Ability to look for legacy files or legacy annotations based on case, file and annotation facets.</li>
+<li><strong>File and Annotation tables</strong>: List of all the legacy files and list of all the legacy annotations.</li>
+<li><strong>File and Annotation detail pages</strong>: Information page for each legacy file and annotation.</li>
+<li><strong>Cart</strong>:  The GDC Legacy Archive and the GDC Data Portal are separate systems with separate download carts.</li>
+</ul>
+<p><a href="images/gdc-legacy-portal-home.png" title="Click to see the full image."><img alt="Legacy Archive Portal" src="images/gdc-legacy-portal-home.png" /></a></p>
+<h3>File Page</h3>
+<p>The file page of the GDC Legacy Archive is similar to the <a href="Repository.md#file-summary-page">File Summary Page of the GDC Data Portal</a>. It does not include the Workflow, Reference Genome, and Read Groups sections as these are only applicable to harmonized data available in the GDC Data Portal. The Legacy Archive includes additional archive information as described below.</p>
+<p><a href="images/gdc-data-portal-files-entity-page-Archive-MagTab.png" title="Click to see the full image."><img alt="Files Entity Page" src="images/gdc-data-portal-files-entity-page-Archive-MagTab.png" /></a></p>
+<h4>Archive</h4>
+<p>If a file was originally produced as part of an archive containing other files, the archive information (Archive ID and number of files in the archive) is displayed in the file properties and, if selected, the user will see a list of files containing all other files in that archive.</p>
+<h4>Metadata Files</h4>
+<p>If a file has any associated MAGE-TAB or SRA XML metadata files, these files will be listed at the bottom of the page. These files will can be downloaded directly from this page. Alternatively, metadata files can be downloaded from the file cart.</p>
+<h3>File Cart</h3>
+<p>The file cart in the GDC Legacy Archive is analogous to the <a href="Cart.md">file cart of the GDC Data Portal</a>. It provides an additional button to download any SRA-XML and MAGE-TAB metadata files associated with the files in the cart.</p>
         </div>
       </div>
     </div>

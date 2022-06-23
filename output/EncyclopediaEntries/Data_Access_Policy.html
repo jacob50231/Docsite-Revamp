@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,28 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Data Access Policy</h1><hr>
+<h2>Description</h2>
+<p>A Data Access Policy is an established control put in place to ensure that data protection requirements are followed. The GDC Data Access Policy<sup>1</sup> ensures that personally identifiable information in data made available in the GDC is kept from unauthorized users. GDC access control policies adhere to the <a href="https://gds.nih.gov/03policy2.html">National Institutes of Health (NIH) Genomic Data Sharing Policy (GDS) Policy</a><sup>2</sup> as well as the <a href="https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data">NCI GDS Policy</a><sup>3</sup>. The GDC requires that users obtain authorization from the <a href="https://www.ncbi.nlm.nih.gov/gap">National Center for Biotechnology Information (NCBI) Database of Genotypes and Phenotypes (dbGaP)</a> for accessing controlled data.</p>
+<h2>Overview</h2>
+<p>Any user accessing GDC open data must adhere to the NIH Genomic Data Sharing (GDS) Policy<sup>2</sup> which indicates that investigators who download unrestricted-access data from NIH-designated data repositories should:</p>
+<ul>
+<li>Not attempt to identify individual human research participants from whom the data were obtained</li>
+<li>Acknowledge in all oral or written presentations, disclosures, or publications the specific dataset(s) or applicable accession number(s) and the NIH-designated data repositories through which the investigator accessed any data</li>
+</ul>
+<p>Any user requesting access to GDC controlled data must apply for dbGaP authorization, which is granted by an NIH Data Access Committee (DAC). DACs review and approve or disapprove all requests from the research community for data access.  Decisions to grant access are made based on whether the request conforms to the specifications within the NIH Genomic Data Sharing Policy and program specific requirements or procedures (if any). All uses proposed for controlled-access data must be consistent with the data use limitations for the data set as indicated by the submitting institution and identified on the public website for dbGaP. DACs also review and approve or disapprove all requests for access to dbGaP data for programmatic oversight by NIH employees.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/access-data/data-access-policies">GDC Data Access Policies</a></li>
+<li><a href="https://gds.nih.gov/03policy2.html">NIH GDS Policy</a></li>
+<li><a href="https://www.cancer.gov/grants-training/grants-management/nci-policies/genomic-data">NCI GDS Policy</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/gap">NCBI dbGaP</a></li>
+<li><a href="https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login">dbGaP Application for Controlled Access Data</a></li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Introduction'>Introduction</a></li><li><a href='#RPPA Data in the GDC'>RPPA Data in the GDC</a></li><li><a href='#References'>References</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,42 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Protein Expression - RPPA</h1><hr>
+<h2>Introduction</h2>
+<p><strong>R</strong>everse <strong>P</strong>hase <strong>P</strong>rotein <strong>A</strong>rray (RPPA) is a high-throughput antibody-based technique with a procedure similar to that of Western blots. In the procedure carried by <a href="https://www.mdanderson.org/">MD Anderson Cancer Center</a>, hundreds to thousands of different cell lysates are immobilized on a nitrocellulose-coated slide as many individual spots, followed by incubations with one protein-specific antibody, and detection. A group (often several hundreds) of antibodies form a <em>set</em>, which are used for each assay. Occasionally, antibodies may be added to or removed from the set depending on feasibility/functionality, which forms a new set.</p>
+<p>To quantify protein expression, a "standard curve" is constructed from spots on each slide (one slide probed for one antibody). These spots include serial dilutions of each sample plus QC spots of standard lysates at different concentrations.</p>
+<p>The technique is capable of the following types of analyses:</p>
+<ul>
+<li>Patient tumor classification</li>
+<li>DNA, RNA, and Protein correlation</li>
+<li>Prognosis</li>
+<li>Response prediction for targeted therapies</li>
+<li>Pharmacodynamics and biologically relevant dose</li>
+<li>Determination of appropriate handling procedures for clinical samples (based on antigen stability analysis)</li>
+</ul>
+<h2>RPPA Data in the GDC</h2>
+<p>The antigens used for RPPA are available at ref [5], with the following information available:</p>
+<ul>
+<li><code>AGID</code>: The antigen unique ID</li>
+<li><code>peptide_target</code>: The unique ID for the target site that the antigen binds to</li>
+<li><code>gene_symbol</code>: The unique gene name abbreviation that codes the peptide</li>
+<li><code>antibody_origin</code>: The species that the antibody originated from</li>
+<li><code>source</code>: The antibody vendor company</li>
+<li><code>catalog_number</code>: Antibody vendor's catalog number</li>
+<li><code>validation_status</code>: Indicating how trustworthy those antibodies are, based on QC tests of antibody quality by the MD Anderson.</li>
+</ul>
+<p>The GDC protein expression quantification data set is available in TSV format and contains <code>AGID</code>,  <code>catalog_number</code>, and <code>peptide_target</code> from the reference file, plus the following fields:</p>
+<ul>
+<li><code>lab_id</code>: The unique antibody ID</li>
+<li><code>set_id</code>: The ID for a set, ie list of antibodies (eg refs [3] &amp; [4]).</li>
+<li><code>protein_expression</code>: Relative levels of protein expression - interpolation of each dilution curve to the "standard curve" (supercurve) of the slide (antibody).</li>
+</ul>
+<h2>References</h2>
+<p>[1]. https://bioinformatics.mdanderson.org/public-software/tcpa/</p>
+<p>[2]. https://www.mdanderson.org/research/research-resources/core-facilities/functional-proteomics-rppa-core/rppa-process.html</p>
+<p>[3]. https://www.mdanderson.org/content/dam/mdanderson/documents/core-facilities/Functional%20Proteomics%20RPPA%20Core%20Facility/RPPA_Expanded_Ab_List_Updated.xlsx</p>
+<p>[4]. https://www.mdanderson.org/content/dam/mdanderson/documents/core-facilities/Functional%20Proteomics%20RPPA%20Core%20Facility/RPPA_Standard_Ab_List_Updated.xlsx</p>
+<p>[5]. https://gdc.cancer.gov/about-data/gdc-data-processing/gdc-reference-files</p>
         </div>
       </div>
     </div>

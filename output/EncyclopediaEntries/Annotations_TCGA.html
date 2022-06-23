@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Annotations Overview'>Annotations Overview</a></li><li><a href='#Annotation Classification and Categories'>Annotation Classification and Categories</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,295 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Introduction to Annotations</h1><hr>
+<p>This document is retained for reference purposes for TCGA and should not be considered the current GDC standard.  For information on the existing GDC use of annotations please see the <a href="/Encyclopedia/pages/Annotations/">Annotations Encyclopedia entry</a>.</p>
+<p>This document was adapted from https://wiki.nci.nih.gov/pages/viewpage.action?spaceKey=TCGA&amp;title=Introduction+to+Annotations</p>
+<p>This section includes the following topics.</p>
+<p><strong>Contents of this page</strong></p>
+<ul>
+<li>Annotations Overview</li>
+<li>Annotation Classification and Categories</li>
+</ul>
+<h2>Annotations Overview</h2>
+<p>The Annotations application allows authorized TCGA team members to add
+annotations about TCGA patients and samples down to the aliquot level. These
+annotations are searchable by the general public, and contain important
+information about TCGA patients and samples needed for complete and accurate
+analysis and interpretation of TCGA data. The current general annotation types
+are: redaction, notification, CenterNotification, and observation. Redactions
+and notifications are made under BCR authority. Each annotation is categorized
+using controlled vocabulary. Free-form text notes may also be added. Any TCGA
+user may search and download annotations against a number of metadata fields.</p>
+<p>An annotation has multiple components, described in the following table.</p>
+<table class='table'>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Item type</td>
+<td>Patient, Sample, Portion, Slide, Analyte, Aliquot</td>
+</tr>
+<tr>
+<td>Disease</td>
+<td>Tumor type, by <a href="https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/sample-type-codes">abbreviation</a></td>
+</tr>
+<tr>
+<td>Item Barcode</td>
+<td><a href="TCGA_Barcode.md">barcode</a> of TCGA item</td>
+</tr>
+<tr>
+<td>Item UUID</td>
+<td><a href="UUID.md">UUID</a> of TCGA item</td>
+</tr>
+<tr>
+<td>Annotation Classification</td>
+<td>controlled vocabulary, see the table below</td>
+</tr>
+<tr>
+<td>Annotation Category</td>
+<td>controlled vocabulary, see the table below</td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>collection of free text notes, can be added to annotations after creation</td>
+</tr>
+<tr>
+<td>Other metadata</td>
+<td>timestamp, creator</td>
+</tr>
+</tbody>
+</table>
+<p>The following image shows annotation components in the search results.</p>
+<p><img alt="search results page" src="images/ScreenShot_DOC-719.png" /></p>
+<h2>Annotation Classification and Categories</h2>
+<p>Categories and types of annotations have been explicitly defined, as shown in
+the following table.</p>
+<p>Annotation authority</p>
+<p>If an annotation appears, it appears under the authority of a certain component
+of TCGA. The authorizing group can be determined from the annotation
+classification. For example, Redactions and Notifications possess Program Office
+level authority; they are 'official', while Observations are notes from the user
+base and are 'unofficial'".</p>
+<table class='table'>
+<thead>
+<tr>
+<th><strong>Annotation Classification</strong></th>
+<th><strong>Annotation Category</strong></th>
+<th><strong>Authority</strong></th>
+<th><strong>Admissible for Items</strong></th>
+<th><strong>Usage notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redaction</td>
+<td>Tumor tissue origin incorrect</td>
+<td>BCR</td>
+<td>Patient, Sample</td>
+<td>Use Annotation Note to indicate details, e.g. "Case was of non-ovarian origin"</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Tumor type incorrect</td>
+<td>BCR</td>
+<td>Patient, Sample</td>
+<td>Applies to mislabeling of a disease study, organ or tissue</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Genotype mismatch</td>
+<td>BCR</td>
+<td>(Patient+Analyte), (Sample+Analyte)</td>
+<td>Incorporates conditions such as "Failed SSTR"</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Subject withdrew consent</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Subject identity unknown</td>
+<td>BCR</td>
+<td>Patient</td>
+<td>Applies to patients categorized under the wrong TSS-to-BCR mapping</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Duplicate case</td>
+<td>BCR</td>
+<td>Patient</td>
+<td>Applies to the second (and higher) instance(s) of the same patient being accessioned through TCGA. E.g. "duplicated subject 0981"</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Administrative Compliance</td>
+<td>BCR</td>
+<td>Patient</td>
+<td>Use Annotation Note to indicate details e.g. "Case not meeting regulatory requirements for TCGA"</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Prior malignancy</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Neoadjuvant therapy</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Qualification metrics changed</td>
+<td>BCR</td>
+<td>Any</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Pathology outside specification</td>
+<td>BCR</td>
+<td>Sample, Portion, Slide</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Molecular analysis outside specification</td>
+<td>BCR</td>
+<td>Sample, Portion, Analyte, Aliquot</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Clinical data insufficient</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Item does not meet study protocol</td>
+<td>BCR</td>
+<td>Any</td>
+<td>This can be used for infrequently encountered situations (e.g, not Prior malignancy or Neoadjuvant therapy); details should be supplied in an Annotation Note.</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Item in special subset</td>
+<td>BCR</td>
+<td>Patient, Sample</td>
+<td>Use to indicate that an item is involved in a "side study". Use free text 'Annotation Note' to indicate study (e.g. "Necrosis study", "Indivumed Prior Malignancy").</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Qualified in error</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Item is noncanonical</td>
+<td>BCR</td>
+<td>Any</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>New notification type</td>
+<td>BCR</td>
+<td>Any</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>History of unacceptable prior treatment related to a prior/other malignancy</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>History of acceptable prior treatment related to a prior/other malignancy</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Case submitted is found to be a recurrence after submission</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>Synchronous malignancy</td>
+<td>BCR</td>
+<td>Patient</td>
+<td></td>
+</tr>
+<tr>
+<td>CenterNotification</td>
+<td>Center QC failed</td>
+<td>GSC or GCC</td>
+<td>Patient, Sample, Analyte, Aliquot</td>
+<td>QC failures at GCC/GSC/GDAC level, note describes the issue</td>
+</tr>
+<tr>
+<td>CenterNotification</td>
+<td>Item flagged DNU</td>
+<td>GSC or GCC</td>
+<td>Patient, Sample, Analyte, Aliquot</td>
+<td>"Do not use" flag, applied by GCC/GSC/GDAC</td>
+</tr>
+<tr>
+<td>Observation</td>
+<td>Tumor class but appears normal</td>
+<td>Authorized User</td>
+<td>Sample, Portion, Slide, Analyte, Aliquot</td>
+<td></td>
+</tr>
+<tr>
+<td>Observation</td>
+<td>Normal class but appears diseased</td>
+<td>Authorized User</td>
+<td>Sample, Portion, Slide, Analyte, Aliquot</td>
+<td></td>
+</tr>
+<tr>
+<td>Observation</td>
+<td>Item may not meet study protocol</td>
+<td>Authorized User</td>
+<td>Any</td>
+<td></td>
+</tr>
+<tr>
+<td>Observation</td>
+<td>General</td>
+<td>Authorized User</td>
+<td>Any</td>
+<td></td>
+</tr>
+<tr>
+<td>Observation</td>
+<td>New observation type</td>
+<td>Authorized User</td>
+<td>Any</td>
+<td>user-suggested observation type</td>
+</tr>
+</tbody>
+</table>
         </div>
       </div>
     </div>

@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Speed Performance During Download'>Speed Performance During Download</a></li><li><a href='#Very Large Manifests'>Very Large Manifests</a></li><li><a href='#General Tips'>General Tips</a></li><li><a href='#Logging'>Logging</a></li><li><a href='#OS Compatibility with the Data Transfer Tool'>OS Compatibility with the Data Transfer Tool</a></li><li><a href='#Network Troubleshooting'>Network Troubleshooting</a></li><li><a href='#Common Error Codes'>Common Error Codes</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,60 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Troubleshooting Guide</h1><hr>
+<p>If you encounter issues when using the Data Transfer Tool for downloading files please reference the section below for helpful hints and recommendations.  </p>
+<h2>Speed Performance During Download</h2>
+<p>The Data Transfer Tool has two performance tuning options that are presented during download operations.  The two options are:</p>
+<ul>
+<li>
+<p>--n - The "--n" option assists with assigning the number of threads to the download process.  The default is 4 and can not be lowered below three threads.</p>
+</li>
+<li>
+<p>--http-chunk-size - The "--http-chunk-size" setting can improve performance but we do not provide any hard settings due to the eclectic nature of client networks and their connections to the internet but instead encourage clients to experiment with changing the default setting of 1048576 bytes to larger size ranges.       </p>
+</li>
+</ul>
+<h2>Very Large Manifests</h2>
+<p>Some clients have needed to create very large manifest files to satisfy the scope of their work.  Using very large manifest files can from time to time lead to the end user experiencing  network time outs or dropped connections due to network topologies, internet connections, or load on client side systems.  Network time out or dropped network connect can manifest as a hung or unresponsive download session. To help mitigate these issues we recommended that clients breakup their manifest files into smaller chunks.  </p>
+<h2>General Tips</h2>
+<ul>
+<li>To avoid running into older software bugs/conflicts we recommend you always use the latest version of the client whenever possible.  </li>
+<li>When experiencing download problems while using an access tokens try downloading a new token first before reporting it to the GDC Help Desk.  </li>
+</ul>
+<h2>Logging</h2>
+<p>For troubleshooting purposes the GDC User Services Team may request that you run the command line application with the following flags { --debug --log-file }.  These flags will run the application in debug mode and create a logfile file with the debug logs in it.<br />
+Example Usage:</p>
+<pre><code class="language-Debug-Logfile">gdc-client download -m lung.manifest.txt -t token.file --debug --log-file logfile.txt
+</code></pre>
+<h2>OS Compatibility with the Data Transfer Tool</h2>
+<p>The Data transfer Tool is offered in three OS compatible versions; Mac OS, Windows, and Ubuntu Linux.  We have successfully tested the Ubuntu binary on CentOS 7.x and 8.x, RHEL 7/8 and Scientific Linux 7/8 with the client but have had problems with CentOS 6.x and RHEL 6 and SL6.  To work around this problem we have asked users to build their own client from our <a href="https://github.com/NCI-GDC/gdc-client">github</a> repository with the assistance of an instruction document that we provide on request via the GDC Helpdesk.        </p>
+<h2>Network Troubleshooting</h2>
+<p>Network problems can appear as dropped network connections or even a stalled application.  The GDC Helpdesk might request more network information to assist in diagnosing the problem.  The two tests they will request the end user to run are ping and traceroute (tracert on the windows platform) against our api servers.  Please capture the output from these tests into a text file and attach it to the reply email.   </p>
+<p>Examples:</p>
+<pre><code class="language-Ping">&gt;ping api.gdc.cancer.gov
+ PING api.gdc.cancer.gov (192.170.230.246): 56 data bytes
+ 64 bytes from 192.170.230.246: icmp_seq=0 ttl=249 time=4.235 ms
+ 64 bytes from 192.170.230.246: icmp_seq=1 ttl=249 time=4.783 ms
+</code></pre>
+<pre><code class="language-Traceroute">&gt;traceroute api.gdc.cancer.gov
+ traceroute to api.gdc.cancer.gov (192.170.230.246), 64 hops max, 52 byte packets
+ 1  h01-391-250-v1011.gw.uchicago.net (10.151.0.2)  4.595 ms  3.602 ms  3.322 ms
+ 2  h01-391-250-to-b65-ll129-300.p2p.uchicago.net (10.5.1.32)  13.285 ms  9.241 ms  5.156 ms
+ 3  b65-ll129-300-to-borderfw.p2p.uchicago.net (192.170.192.32)  3.218 ms  3.364 ms  3.396 ms
+ 4  borderfw-to-b65-ll129-500.p2p.uchicago.net (192.170.192.36)  3.605 ms  3.741 ms  3.833 ms
+ 5  b65-scidmz-01-to-b65-ll129-500.uchicago.net (128.135.247.182)  4.223 ms  5.428 ms  3.999 ms
+ 6  192.170.224.97 (192.170.224.97)  4.003 ms  3.970 ms  6.260 ms
+ 7  lnk-g30-scidist-01.scidmz.uchicago.net (192.170.224.66)  4.530 ms  4.649 ms  6.021 ms
+ 8  192.170.230.246 (192.170.230.246)  4.158 ms  4.273 ms  5.134 ms
+</code></pre>
+<h2>Common Error Codes</h2>
+<p>This is a list of the most common error codes the Data Transfer Tool generates and their meaning</p>
+<ul TYPE="square">
+<li> Unable to connect to API - you might be running an out of date client so consider upgrading.</li>
+<li> Error: Max Retries Exceeded - network connect timeouts </li>
+<li>CryptographyDeprecationWarning - a warning that you should consider upgrading to a higher   
+  version of python - please upgrade to 2.7.x or higher.</li>
+<li>ERROR: An unexpected error has occurred during normal operation of the client - This could  be a variety of problems and we ask you to contact our helpdesk.</li>
+<li>ECONNRESET - network connection dropped.</li>
         </div>
       </div>
     </div>

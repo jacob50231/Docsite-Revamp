@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,30 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   GDC Data Portal</h1><hr>
+<h2>Description</h2>
+<p>The GDC Data Portal<sup>1</sup> is a robust data-driven platform that allows users to search and download harmonized cancer data for analysis using modern web technologies.</p>
+<h2>Overview</h2>
+<p>The GDC Data Portal provides users with web-based access to harmonized data from cancer genomics studies. Harmonized data includes standardized biospecimen and clinical data, DNA and RNA sequence data that has been aligned to the latest reference genome build (GRCh38), and derived data generated through GDC pipelines<sup>2</sup>. Legacy data that has not been harmonized is available in the GDC Legacy Archive<sup>3</sup>.</p>
+<p>Key GDC Data Portal features include:</p>
+<ul>
+<li>Open, granular access to information about all harmonized datasets available in the GDC</li>
+<li>Advanced search and visualization-assisted filtering of data files</li>
+<li>Cart for collecting data files of interest</li>
+<li>Authentication using eRA Commons credentials for access to controlled data files</li>
+<li>Secure data download directly from the cart or using the GDC Data Transfer Tool</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://portal.gdc.cancer.gov">GDC Data Portal</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Portal/Users_Guide/Getting_Started/">GDC Data Portal User's Guide</a></li>
+<li><a href="https://portal.gdc.cancer.gov/legacy-archive/search/f">GDC Legacy Archive</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: Tool</p>
         </div>
       </div>
     </div>

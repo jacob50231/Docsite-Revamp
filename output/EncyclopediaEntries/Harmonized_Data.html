@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,22 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Harmonized Data</h1><hr>
+<h2>Description</h2>
+<p>Harmonized data refers to the collection of raw data from multiple sources that has been normalized so that a valid comparison can be made across these sources.</p>
+<h2>Overview</h2>
+<p>Data harmonization is one of the underlying principles on which the GDC is based. Genomic data is typically collected, processed, and analyzed on a project-level basis by many different groups. Even the most similar projects cannot always be compared in a valid way due to small differences across data processing and analysis pipelines. The GDC collects raw data from many cancer projects and processes them using standardized pipelines<sup>1</sup> and the reference genome GRCh38<sup>2</sup>. This gives the advantage of analyzing multiple cancer types or the same cancer type across multiple projects.</p>
+<p>GDC Data is harmonized using carefully curated bioinformatics pipelines and produces somatic variant call, gene expression, copy number variation estimation, and methylation data. Clinical and biospecimen data are also harmonized by making a set of elements common to all projects available for download through the API. As new projects are submitted to the GDC, incoming data is reviewed by a team of bioinformaticians who determine how to proceed with harmonization based on the data type, quality, and available computational resources.  </p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/about-data/gdc-data-harmonization">GDC Data Harmonization</a></li>
+<li><a href="https://gdc.cancer.gov/about-data/data-harmonization-and-generation/gdc-reference-files">GDC Reference Genome</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

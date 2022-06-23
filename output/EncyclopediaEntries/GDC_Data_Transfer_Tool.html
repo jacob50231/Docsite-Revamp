@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,27 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   GDC Data Transfer Tool (DTT)</h1><hr>
+<h2>Description</h2>
+<p>The GDC Data Transfer Tool (DTT)<sup>1</sup> provides a standard client-based mechanism in support of high performance data downloads and submission.</p>
+<h2>Overview</h2>
+<p>The GDC DTT provides an optimized method of transferring data to and from the GDC, and enables resumption of interrupted transfers. The GDC DTT is the preferred option for downloading or submitting large or numerous files.</p>
+<p>Key GDC DTT features include<sup>2</sup>:</p>
+<ul>
+<li>Command-line interface to specify the desired data transfer protocol</li>
+<li>Utilization of a manifest file generated from the GDC Data Portal and GDC Data Submission Portal for multiple downloads and uploads, respectively</li>
+<li>Supports the secure transfer of controlled access data using an authentication key (token)</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/access-data/gdc-data-transfer-tool">GDC Data Transfer Tool</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Getting_Started/">GDC Data Transfer Tool User's Guide</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: Tool</p>
         </div>
       </div>
     </div>

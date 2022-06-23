@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,26 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Variant Call Format (VCF)</h1><hr>
+<h2>Description</h2>
+<p>The Variant Call Format (VCF) is a standardized format for storing and reporting genomic sequence variations.</p>
+<h2>Overview</h2>
+<p>VCF files are used to report sequence variations (e.g., SNPs, indels and larger structural variants) together with rich annotations. VCF files are modular where the annotations and genotype information for a variant are separated from the call itself. VCF version 4.1 is the currently active format specification<sup>1</sup>.</p>
+<p>VCF files are generated at the GDC with one of four variant callers (MuSe, MuTect2, SomaticSniper, VarScan) by comparing a tumor alignment to a normal alignment from the same patient. All GDC VCFs from patients are protected data and require dbGaP credentials to access.</p>
+<p>VCF files are produced on a case-level for each variant caller (four VCF files per case). All VCF files within a project that were produced by a single pipeline are aggregated to produce a MAF file.  </p>
+<h3>Structure</h3>
+<p>VCF files are tab-delimited files that report a mutation for each row. VCFs are available at the GDC in a raw format or an annotated format that contains additional information about the location and consequences of each somatic variant.</p>
+<p>Details about the structure of the VCF is available in the VCF 4.1 Specification<sup>1</sup>. Changes made to the VCF format in support of the GDC are available in the GDC VCF Format documentation<sup>2</sup>.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://samtools.github.io/hts-specs/VCFv4.1.pdf">VCF 4.1 Specification</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data/File_Formats/VCF_Format/">GDC VCF Format</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="https://samtools.github.io/hts-specs/VCFv4.1.pdf">VCF 4.1 Specification</a></li>
+</ul>
+<p>Categories: Data Type</p>
         </div>
       </div>
     </div>

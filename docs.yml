@@ -1,27 +1,4 @@
-copyright: '&copy; 2015-2016'
-extra:
-  dictionary_app_root: /apps/dictionary
-  dictionary_viewer_page_id: Viewer
-  gdcmvs_app_root: /apps/gdcmvs
-  gdcmvs_viewer_page_id: Search
-  encyclopedia_entries_page_title: EncyclopediaEntries
-  encyclopedia_page_title: Encyclopedia
-  nav_exclude:
-  - EncyclopediaEntries
-  project_description: GDC Docs
-  project_org: GDC
-  project_root_dir: /
-  version: 1.0
-extra_css:
-- css/encyclopedia.css
-markdown_extensions:
-- tables
-- BSCodeTabExtension:
-    animate_tab_transitions: false
-    default_lang: Source
-    show_all_code_as_folders: true
 pages:
-- Home: index.md
 - API:
   - Getting Started: API/Users_Guide/Getting_Started.md
   - Search and Retrieval: API/Users_Guide/Search_and_Retrieval.md
@@ -82,12 +59,11 @@ pages:
   - 'Bioinformatics Pipeline: mRNA Analysis': Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline.md
   - 'Bioinformatics Pipeline: miRNA Analysis': Data/Bioinformatics_Pipelines/miRNA_Pipeline.md
   - 'Bioinformatics Pipeline: Copy Number Variation Analysis': Data/Bioinformatics_Pipelines/CNV_Pipeline.md
-  - 'Bioinformatics Pipeline: Methylation Liftover Pipeline': Data/Bioinformatics_Pipelines/Methylation_LO_Pipeline.md
+  - 'Bioinformatics Pipeline: Methylation Liftover Pipeline': Data/Bioinformatics_Pipelines/Methylation_Pipeline.md
   - 'Bioinformatics Pipeline: Protein Expression': Data/Bioinformatics_Pipelines/RPPA_intro.md
   - Aligned Reads Summary Metrics: Data/Bioinformatics_Pipelines/Aligned_reads_summary_metrics.md
   - Release Notes: Data/Release_Notes/Data_Release_Notes.md
   - fa-file-text Download PDF /Data/PDF/Data_UG.pdf: Data/PDF/index.md
-- Encyclopedia: Encyclopedia/index.md
 - EncyclopediaEntries:
   - Affymetrix SNP 6.0: Encyclopedia/pages/Affymetrix_SNP_6.0.md
   - Annotations: Encyclopedia/pages/Annotations.md
@@ -137,5 +113,8 @@ pages:
 repo_url: https://github.com/NCI-GDC/gdc-docs
 site_name: GDC Docs
 site_url: http://docs.gdc.cancer.gov
-theme: mkdocs
-theme_dir: theme
+site_loc: /home/jacob/Work/Docsite-Revamp
+template_path: templates/template.html
+css_files:
+  - css/styles.css
+  - css/docs.css

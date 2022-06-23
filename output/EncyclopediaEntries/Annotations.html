@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,22 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Annotations</h1><hr>
+<p>Annotations contain important information about files, cases, or metadata nodes that may be of use to data downloaders when analyzing GDC data.  They should be reviewed prior to running an analysis.  An annotation may include key comments about why particular patients, samples, or files are absent from the GDC or why they may exhibit critical differences from others. Annotations include information that cannot be submitted to the GDC through other existing nodes or properties.</p>
+<p>Annotations are automatically downloaded in TSV format with impacted files when using the Data Transfer Tool.  They may also be searched via the <a href="/API/Users_Guide/Search_and_Retrieval/#annotations-endpoint">API</a> or on the annotations page of the <a href="https://portal.gdc.cancer.gov/annotations">GDC Data Portal</a>.  Instructions on accessing annotations in the GDC Data Portal are found in the <a href="/Data_Portal/Users_Guide/Repository/#annotations-view">GDC Data Portal User Guide</a>.</p>
+<p>For information on Annotation structure and content please review the <a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=annotation">GDC Data Dictionary</a></p>
+<p>For information about TCGA conventions for annotations please see the <a href="Annotations_TCGA/">TCGA Introduction to Annotations</a>.  </p>
+<p>If a submitter would like to create an annotation, please contact the GDC Support Team (support@nci-gdc.datacommons.io).</p>
+<h2>References</h2>
+<ol>
+<li><a href="/API/Users_Guide/Search_and_Retrieval/#annotations-endpoint">API User Guide</a></li>
+<li><a href="https://portal.gdc.cancer.gov/annotations">GDC Data Portal</a></li>
+<li><a href="/Data_Portal/Users_Guide/Repository/#annotations-view">GDC Data Portal User Guide</a></li>
+<li><a href="/Data_Dictionary/viewer/#?view=table-definition-view&amp;id=annotation">GDC Data Dictionary</a></li>
+<li><a href="Annotations_TCGA/">TCGA Annotations</a></li>
+</ol>
+<h2>External Links</h2>
+<p>Categories: Data Type</p>
         </div>
       </div>
     </div>

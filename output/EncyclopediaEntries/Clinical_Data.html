@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,28 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Clinical Data</h1><hr>
+<h2>Description</h2>
+<p>Clinical data is a collection of data related to patient diagnosis, demographics, exposures, laboratory tests, and family relationships.  </p>
+<h2>Overview</h2>
+<p>A core focus of the GDC is to enable the comparison of cancer genomic data to patient clinical data.  This may include patient diagnosis, exposures, laboratory tests, and family relationships.  To allow for comparisons across projects the GDC adheres to a common set of clinical terms.</p>
+<p>Clinical data vocabulary in the GDC is defined in the GDC Data Dictionary<sup>1</sup>.  A simple list of all GDC clinical terms can be found on the GDC Website<sup>2</sup>. Whenever possible each clinical data property is associated with a Common Data Element defined in the <a href="https://cdebrowser.nci.nih.gov/cdebrowserClient/cdeBrowser.html">CDE Browser</a>, which is part of the <a href="https://cbiit.nci.nih.gov/">Center for Biomedical Informatics &amp; Information Technology</a>.  CDEs and their component definitions in the <a href="https://ncit.nci.nih.gov/ncitbrowser/">NCI Thesaurus</a> provide very precise descriptions of clinical data, which allows data consumers and submitters to understand precisely what data in the GDC represents.</p>
+<p>Additional information on the goals and origins of the GDC clinical terminology can be found in this GDC scientific report<sup>3</sup>.  Additional information on how the clinical data relates to overall GDC Data Model can be found on the GDC Website<sup>4</sup>.</p>
+<h3>Data</h3>
+<p>In the GDC, clinical data is searchable in the API, Data Portal, or Legacy Archive.  This only includes data that has been indexed and aligns with the GDC Data Dictionary<sup>1,2</sup>.  Additional clinical data may be stored in clinical supplement files in different formats depending on the project.  For example, this may include XML or biotab for TCGA or xlsx for TARGET.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-entity-list&amp;anchor=clinical">GDC Clinical Data Dictionary Entries</a></li>
+<li><a href="https://gdc.cancer.gov/about-data/data-harmonization-and-generation/clinical-data-harmonization">GDC Clinical Data Harmonization</a></li>
+<li><a href="https://gdc.cancer.gov/node/777/">Selecting Common Cross-Study Clinical Data Elements</a></li>
+<li><a href="https://gdc.cancer.gov/developers/gdc-data-model">GDC Data Model</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>https://cdebrowser.nci.nih.gov/cdebrowserClient/cdeBrowser.html</li>
+<li>https://cbiit.nci.nih.gov/</li>
+</ul>
+<p>Categories: Data Category</p>
         </div>
       </div>
     </div>

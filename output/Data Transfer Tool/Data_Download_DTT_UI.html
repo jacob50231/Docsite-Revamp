@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Data Transfer Tool UI: Overview'>Data Transfer Tool UI: Overview</a></li><li><a href='#Downloads with UUIDs'>Downloads with UUIDs</a></li><li><a href='#Downloads with Manifest'>Downloads with Manifest</a></li><li><a href='#Download Progress Page'>Download Progress Page</a></li><li><a href='#Controlled Access File Downloads'>Controlled Access File Downloads</a></li><li><a href='#Settings and Advanced Settings'>Settings and Advanced Settings</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,104 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Data Downloads with the Data Transfer Tool UI</h1><hr>
+<h2>Data Transfer Tool UI: Overview</h2>
+<p>The UI version of the Data Transfer Tool was created for users who prefer a graphical interface over the command line or have limited command line experience.  The command line version is recommended for those users with more command line experience, require large data transfers of GDC data, or need to download a large numbers of data files.</p>
+<h3>System Recommendations</h3>
+<p>The system recommendations for using the GDC Data Transfer Tool are as follows:</p>
+<ul>
+<li>OS: Linux (Ubuntu 14.x or later), OS X (10.9 Mavericks or later), or Windows (7 or later)</li>
+<li>CPU: At least four 64-bit cores, Intel or AMD</li>
+<li>RAM: At least 2 GiB</li>
+<li>Storage: Enterprise-class storage system capable of at least 1 Gb/s (gigabit per second) write throughput and sufficient free space for BAM files.</li>
+</ul>
+<h3>Binary Distributions</h3>
+<p>Binary distributions are available on the GDC Transfer Tool page. To install the GDC Data Transfer UI download the respective binary distribution and unzip the distribution's archive to a location on the target system that is easily accessible.</p>
+<h3>Binary Installation</h3>
+<p>Once the binary has been positioned in an appropriate location on the client's file system the application will need to run though a one-time installation process.  On first execution the binary install splash screen will appear showing the progress of the installation.  A hidden directory is created within the user's home directory labeled dtt that holds configuration and executable files.</p>
+<p><img alt="GDC DTT UI Installation" src="images/GDC_DTT_UI_INSTALLv7.png" title="GDC Data Transfer Tool UI Install" /></p>
+<h3>Preparing for Data Download</h3>
+<p>The GDC Data Transfer Tool UI is a stand-alone client application intended to work with data file information stored on the GDC Data Portals.  Data download information must first be gathered from either the GDC Data Portal or Legacy Archive.  From there a manifest file can be <a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Preparing_for_Data_Download_and_Upload/#obtaining-a-manifest-file-for-data-download">generated</a> to supply the client.  Alternatively, individual file UUIDs can be provided to the UUID entry window located on the Download tab in the client.</p>
+<p><img alt="GDC DTT UI Start Page" src="images/DTT_UI_Start_Page.png" /></p>
+<h2>Downloads with UUIDs</h2>
+<p>The Data Transfer Tool UI can download files by individual UUID.  UUIDs can be entered into the client while on the download tab.  The single entry field labeled "Enter UUID(s)" allows the user to enter UUIDs individually.     </p>
+<p>To obtain a data file's UUID from the GDC Data Portal, click on the file name to display the file's summary page which includes vital information such as its GDC UUID.  </p>
+<h2>Downloads with Manifest</h2>
+<p>A portal-generated manifest file can be used with the Data Transfer Tool UI.  From the Download tab home page click on the Select Manifest File button.  A file system search window will popup allowing navigation to the manifest file.  </p>
+<p><img alt="GDC DTT UI Manifest Button Example" src="images/Manifest_button_DTT_UI_Start_Window.png" title="GDC Data Transfer Tool UI Manifest Button" />     </p>
+<h2>Download Progress Page</h2>
+<p>The Download Progress Page is the command console for the Data Transfer Tool UI and allows users to monitor downloads. Progress of all downloads including the ability to start, stop, and restart a download are performed on the Download Progress Page.  Once file UUIDs or a manifest has been added to the queue the download can be started by clicking on the download button located at the lower right hand side of the page.  </p>
+<p><img alt="GDC DTT UI Download Progress Page_Download" src="images/Download_Progress_Page_download.png" /></p>
+<p>Once a download has completed, information about the downloads can be viewed from the Completed tab located at the bottom of the page.  Any Stopped or Failed downloads can also be viewed from their respective labels located at the bottom of the Status page.  </p>
+<p><img alt="DTT_UI_Download_Completed_Tab" src="images/DTT_UI_download_completed.png" /></p>
+<h2>Controlled Access File Downloads</h2>
+<p>Some files in the GDC are controlled access.  If you require access to these files please review the process outlined in the documentation <a href="https://gdc.cancer.gov/access-data/obtaining-access-controlled-data">Obtaining Access to Controlled Data</a>.    After appropriate authorization has been granted an access token can be generated to allow the Data Transfer Tool UI application access to the requested data files.  Documentation explaining the process of generating a token is located in the <a href="https://docs.gdc.cancer.gov/Data_Transfer_Tool/Users_Guide/Preparing_for_Data_Download_and_Upload/#obtaining-an-authentication-token-for-data-downloads">Obtaining an Authentication Token for Data Downloads</a>.  Once a token has been downloaded to a secure location on the client's local filesystem the Data Transfer Tool UI can now access it.  </p>
+<p><img alt="No_Token_icon" src="images/No_Token_file_dtt_ui.png" />  </p>
+<p>The current status of client authorization is viewable in the upper right corner of the application.  If the image and wording on the token manager access button is in red then no valid client token file has been uploaded.  To upload a valid token file click on the token status button.  The token manager window should appear allowing either a drag and drop token file upload or a file navigation window can be opened to navigate to the file location.</p>
+<p><img alt="Token Manager Window" src="images/Token_Manager_Window.png" /></p>
+<p>The token manager will verify access and display the projects for which the user has access.  To complete the token upload process click on the save button within the Token Manager window.</p>
+<p><img alt="Valid Token" src="images/validated_token.png" /></p>
+<h2>Settings and Advanced Settings</h2>
+<p>While the default download options will work for the majority of use cases, there are a vareity of ways to customize or modify the download process within the DTT UI.  Details of each of the settings are listed below.</p>
+<p><img alt="DTT Settings and Advanced Settings Page" src="images/DTT_Settings_Page.png" />   </p>
+<table class='table'>
+<thead>
+<tr>
+<th>Settings</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server URL</td>
+<td>Default: https://api.gdc.cancer.gov</td>
+</tr>
+<tr>
+<td>Number of Client Connections: Default (3)</td>
+<td>Number of concurrent client threads</td>
+</tr>
+<tr>
+<td>Destination Folder: Default (User's Home Directory)</td>
+<td>User selectable download file location</td>
+</tr>
+<tr>
+<td>Calculate Inbound Segment and check Md5sum on Restart: Default (On)</td>
+<td>Verify previous partial downloaded files via segment check sum</td>
+</tr>
+<tr>
+<td>Calculates check sums on previous downloaded files Default (On)</td>
+<td>Verify downloaded files via file level check sum</td>
+</tr>
+<tr>
+<td>Save Logs: - Download Navigation windows for client downloads</td>
+<td>Export download or token log files via drop down and export log button</td>
+</tr>
+<tr>
+<td>Debug Logging: Default (Off)</td>
+<td>Enable debug level logging for file downloads</td>
+</tr>
+<tr>
+<td>Block Size (Bytes): Default (1048576)</td>
+<td>HTTP chunk size transfers</td>
+</tr>
+<tr>
+<td>Save Interval (Bytes): Default (1000000)</td>
+<td>save interval in bytes</td>
+</tr>
+<tr>
+<td>Auto Retry: Default (On)</td>
+<td>Enables auto retries of failed downloads</td>
+</tr>
+<tr>
+<td>Retry(s): Default (5)</td>
+<td>Number of retry attempts to download a file after failure</td>
+</tr>
+<tr>
+<td>Seconds between Retrys: Default (5)</td>
+<td>Number of seconds between retires</td>
+</tr>
+</tbody>
+</table>
         </div>
       </div>
     </div>

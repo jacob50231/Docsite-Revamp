@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,26 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   HTSeq-Counts</h1><hr>
+<h2>Description</h2>
+<p>HTSeq is a Python package that calculates the number of mapped reads to each gene.</p>
+<h2>Overview</h2>
+<p>The first step in generating gene expression values from an RNA-Seq alignment at the GDC is generating a count of the reads mapped to each gene<sup>1</sup>. These counts are performed using HTSeq<sup>2</sup> and are calculated at the gene level. HTSeq-Count files are available in a tab-delimited format with one Ensembl gene ID column and one mapped reads column for each gene. These files are then processed further with custom scripts to generate <a href="HTSeq-FPKM.md">FPKM</a> and <a href="HTSeq-FPKM-UQ.md">FPKM-UQ</a> values.</p>
+<h3>Tools</h3>
+<ol>
+<li><a href="http://htseq.readthedocs.io/">HTSeq Website</a></li>
+</ol>
+<h2>References</h2>
+<ol>
+<li><a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/">GDC mRNA-Seq Documentation</a></li>
+<li>Anders, S., Pyl, P.T. and Huber, W., 2014. HTSeq-a Python framework to work with high-throughput sequencing data. Bioinformatics, p.btu638.</li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="http://www.ensembl.org/Homo_sapiens/Info/Annotation">Ensembl Human Genome</a></li>
+<li><a href="https://www.gencodegenes.org/human/release_22.html">GENCODE 22</a></li>
+</ul>
+<p>Categories: Workflow Type</p>
         </div>
       </div>
     </div>

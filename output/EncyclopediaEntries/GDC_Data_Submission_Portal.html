@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,29 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   GDC Data Submission Portal</h1><hr>
+<h2>Description</h2>
+<p>The GDC Data Submission Portal<sup>1</sup> is a platform that allows researchers to submit and release data into the GDC.</p>
+<h2>Overview</h2>
+<p>Key GDC Data Submission Portal features include<sup>2</sup>:</p>
+<ul>
+<li><strong>Upload and Validate Data:</strong> Project data can be uploaded to the GDC project workspace. The GDC will validate the data against the GDC Data Dictionary.</li>
+<li><strong>Review and Submit Data:</strong> Prior to submission, data can be reviewed to check for accuracy. Once the review is complete, the data can be submitted to the GDC for processing through Data Harmonization.</li>
+<li><strong>Release Data:</strong> After harmonization, data can be released to the research community for access through GDC Data Access Tools.</li>
+<li><strong>Download Data:</strong> Data that has been uploaded into the project workspace can be downloaded for review or update. Data can then be re-uploaded before it is released for access through GDC Data Access Tools.</li>
+<li><strong>Browse Data:</strong> Data that has been uploaded to the project workspace can be browsed to ensure that the project is ready for processing.</li>
+<li><strong>Status and Alerts:</strong> Visual cues are implemented to easily identify incomplete submissions.</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><a href="https://portal.gdc.cancer.gov/submission/">GDC Data Submission Portal</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Submission_Portal/Users_Guide/Data_Submission_Overview/">GDC Data Submission Portal User's Guide</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<p>Categories: Tool</p>
         </div>
       </div>
     </div>

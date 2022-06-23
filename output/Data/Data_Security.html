@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Authorization via dbGaP'>Authorization via dbGaP</a></li><li><a href='#Authentication via eRA Commons'>Authentication via eRA Commons</a></li><li><a href='#Checking User Permissions'>Checking User Permissions</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,59 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Data Security</h1><hr>
+<p>To protect the privacy of research participants and support data integrity, the GDC requires user authorization and authentication for:</p>
+<ul>
+<li>downloading controlled-access data</li>
+<li>submitting data to the GDC</li>
+</ul>
+<p>To perform these functions, GDC users must first obtain appropriate authorization via dbGaP and then authenticate via eRA Commons. The GDC sets user permissions at the project level according to dbGaP authorizations.</p>
+<p><em>See <a href="https://gdc.cancer.gov/access-data/data-access-processes-and-tools">Data Access Processes and Tools</a> to learn more about the difference between open-access and controlled-access data.</em></p>
+<h2>Authorization via dbGaP</h2>
+<p>Instructions for obtaining authorization via dbGaP are provided in <a href="https://gdc.cancer.gov/access-data/obtaining-access-controlled-data">Obtaining Access to Controlled Data</a> and <a href="https://gdc.cancer.gov/submit-data/obtaining-access-submit-data">Obtaining Access to Submit Data</a>.</p>
+<h2>Authentication via eRA Commons</h2>
+<p>The following authentication methods are supported by the GDC:</p>
+<table class='table'>
+<thead>
+<tr>
+<th>GDC Tool</th>
+<th>Authentication Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDC Data Portal</td>
+<td>Log in using eRA Commons account</td>
+</tr>
+<tr>
+<td>GDC Data Submission Portal</td>
+<td>Log in using eRA Commons account</td>
+</tr>
+<tr>
+<td>GDC Data Transfer Tool</td>
+<td>Authentication Token</td>
+</tr>
+<tr>
+<td>GDC API</td>
+<td>Authentication Token</td>
+</tr>
+</tbody>
+</table>
+<h3>Authentication Tokens</h3>
+<p>The GDC Data Transfer Tool and the GDC API use tokens for authentication. GDC authentication tokens are alphanumeric strings of characters like this one:</p>
+<pre><code>ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTOKEN-01234567890+AlPhAnUmErIcToKeN=0123456789-ALPHANUMERICTO
+</code></pre>
+<h4>Obtaining A Token</h4>
+<p>Users can obtain authentication tokens from the <a href="https://portal.gdc.cancer.gov">GDC Data Portal</a> and the <a href="https://portal.gdc.cancer.gov/submission">GDC Data Submission Portal</a>. See the <a href="../../Data_Portal/Users_Guide/Repository.md#gdc-authentication-tokens">GDC Data Portal User's Guide</a> and the <a href="../../Data_Submission_Portal/Users_Guide/Data_Submission_Process.md#authentication">GDC Data Submission Portal User's Guide</a> for instructions.</p>
+<h4>Token Expiration</h4>
+<p>Tokens are valid for 30 days from the time of issue. Any request to the GDC API that uses an expired token will result in an error.</p>
+<p>Tokens can be replaced at any time by downloading a new token, which will be valid for another 30 days.</p>
+<h2>Checking User Permissions</h2>
+<p>Users can view the permissions granted to them by the GDC system as follows:</p>
+<ol>
+<li>Log into the <a href="https://portal.gdc.cancer.gov">GDC Data Portal</a> or the <a href="https://portal.gdc.cancer.gov/submission">GDC Data Submission Portal</a> using your eRA Commons account.</li>
+<li>Open the URL <code>https://portal.gdc.cancer.gov/auth/user</code> to see a JSON object that describes user permissions.</li>
+</ol>
         </div>
       </div>
     </div>

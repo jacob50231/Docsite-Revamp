@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,31 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Data Submitter</h1><hr>
+<h2>Description</h2>
+<p>A data submitter uploads approved data to the GDC for harmonization and public release.   </p>
+<h2>Overview</h2>
+<h3>Submission Project Approval</h3>
+<p>A prospective data submitter must first have their project approved by the GDC. Project approval is granted based on the context of the study, the number of samples in the study, and the available data types<sup>1</sup>. Project approval requests can be directed to GDC User Support<sup>2</sup>. Before data can be uploaded to the GDC, a project and all cases must first be registered in dbGaP. Individuals who wish to upload data for a particular project must be registered as a data submitter in dbGaP for that project.</p>
+<h3>Data Upload</h3>
+<p>Data upload must be performed based on the GDC Data Model<sup>3</sup> and Data Dictionary<sup>4</sup>. For example, uploading a sample requires that an associated case is uploaded simultaneously or previously and that the required fields are present. A data submitter can upload data using the GDC API<sup>5</sup> or GDC Data Submission Portal<sup>6</sup>. Once registered, data files must be uploaded to the GDC using the GDC Data Transfer Tool<sup>7</sup>.    </p>
+<h3>Additional Data Submitter Roles</h3>
+<p>After all project data is uploaded and reviewed, the data submitter can release and/or submit the project. Releasing the project gives the GDC permission to distribute data to users. Submitting the project verifies that the data has been reviewed and is ready for harmonization.    </p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/node/633/">Requesting Data Submission</a></li>
+<li>GDC User Support:  <strong>support@nci-gdc.datacommons.io</strong></li>
+<li><a href="https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components">GDC Data Model</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Dictionary/viewer/">GDC Data Dictionary</a></li>
+<li><a href="https://docs.gdc.cancer.gov/API/Users_Guide/Submission/">API Submission</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Submission_Portal/Users_Guide/Data_Submission_Overview/">Data Submission Portal Documentation</a></li>
+<li><a href="https://gdc.cancer.gov/access-data/gdc-data-transfer-tool">GDC Data Transfer Tool</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/gap">dbGaP</a></li>
+</ul>
+<p>Categories: General</p>
         </div>
       </div>
     </div>

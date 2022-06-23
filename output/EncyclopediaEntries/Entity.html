@@ -12,9 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    {% for file in css %}
-      <link rel="stylesheet" href={{ file }}>
-    {% endfor %}
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/styles.css>
+    
+      <link rel="stylesheet" href=/home/jacob/Work/Docsite-Revamp/css/docs.css>
+    
     <!--<link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/encyclopedia.css">-->
 </head>
@@ -179,7 +181,7 @@
             <ul class="main">
               <li class="main"><a href="#">Getting Started</a></li>
               <ul>
-                {{ sidebar }}
+                <li><a href='#Description'>Description</a></li><li><a href='#Overview'>Overview</a></li><li><a href='#References'>References</a></li><li><a href='#External Links'>External Links</a></li>
               </ul>
               <li class="inactive"><a href="#">Search and Retrieval</a></li>
               <li class="inactive"><a href="#">Data Analysis</a></li>
@@ -199,7 +201,24 @@
       </div>
       <div class="col-md-9">
         <div class="container-fluid doc-container">
-          {{ content }}
+          <h1><i class="fas fa-book"></i>   Entity</h1><hr>
+<h2>Description</h2>
+<p>An entity in the GDC is a unique component of the GDC Data Model.</p>
+<h2>Overview</h2>
+<p>The GDC Data Model is the primary method of organizing all data within the GDC<sup>1</sup>.  More specifically, all the data within the GDC can be thought of as a Directed Acyclic Graph (DAG) composed of interconnected entities.  A graphical representation of the GDC Data Model can be found <a href="https://gdc.cancer.gov/developers/gdc-data-model/gdc-data-model-components">here</a>.</p>
+<p>Each entity in the GDC has a set of properties.  An example entity is a <code>case</code> (patient). A <code>case</code> is linked to a number of other entities in the data model, such as those that contain Biospecimen and Clinical data.  For example, the  <code>demographic</code> entity, which is linked to <code>case</code>, contains fields for properties such as ethnicity, race, and gender.  The GDC Data Model defines how each of the entities are connected and the GDC Data Dictionary defines the entities and the relationships between them<sup>2</sup>.</p>
+<p>Each entity is assigned a unique identifier in the form  of a version 4 UUID.</p>
+<p>Data submitters can create and update submittable entities in the GDC Data Model and upload data files registered in the model using the GDC Data Submission Portal, the GDC API, and the GDC Data Transfer Tool<sup>3</sup>.</p>
+<h2>References</h2>
+<ol>
+<li><a href="https://gdc.cancer.gov/developers/gdc-data-model">GDC Data Model</a></li>
+<li><a href="https://docs.gdc.cancer.gov/Data_Dictionary/">GDC Data Dictionary</a></li>
+<li><a href="https://gdc.cancer.gov/submit-data/gdc-data-submission-portal">GDC Data Submission Portal</a></li>
+</ol>
+<h2>External Links</h2>
+<ul>
+<li>N/A</li>
+</ul>
         </div>
       </div>
     </div>
