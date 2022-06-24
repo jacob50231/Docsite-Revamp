@@ -30,18 +30,20 @@ class Pages:
 
         # Get Home Directory
         self.home_directory = yml['site_loc']
+        
+        # Get Site URL (Should be same as home directory for development)
+        self.site_url = yml['site_url']
 
         # Get Location of HTML Template
         self.template_path = self.home_directory + '/' + yml['template_path']
+        
+        # Get GDC Logo location
+        self.logo = self.site_url + '/' + yml['logo']
 
         # Get Pages
         for d in yml['pages']:
-            for k,v in d.items():
-                source_list = []
-                print(k)
-                for d2 in v:
-                    source_list.append(list(d2.values())[0])
-                self.pages[k] = source_list
+            group = list(d.keys())[0]
+            self.pages[group] = d[group]
     
         # Get CSS file locations
         for f in yml['css_files']:
@@ -57,21 +59,34 @@ class Pages:
             rmdir("output")
         except Exception:
             pass
-        os.mkdir("output")
+
         
-        # Iterate through self.pages dictionary and write each to file.
-        for k,v in self.pages.items():
-            os.mkdir("output/" + k)
-            for loc in v:
-                print(k.replace(" ","_") + "/" + loc.split("/")[-1])
-                self.write_to_template("docs/" + loc, "output/" + k + "/" + loc.split("/")[-1].replace("md","html"))
+        # Copy markdown folder
+        os.system("cp -R docs output")
+        
+        # Iterate through self.pages dictionary and write each markdown file to template
+        for group in self.pages.keys():
+            print(group)
+            
+            for page in self.pages[group]:
+
+                # Get name of current page, and it's location
+                pagename = list(page.keys())[0]
+                pageloc = page[pagename]
+
+                # Print page name, and location of markdown file 
+                print("\t" + pagename + ": " + pageloc)
+
+                # Write to template and remove markdown file
+                self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename )
+                os.remove("output/" + pageloc)
 
         return
 
 
     
             
-    def write_to_template(self,markdown_path,output_path):
+    def write_to_template(self,markdown_path,output_path,group,pagename):
 
         # Get Jinja HTML Template
         with open(self.template_path,'r') as f:
@@ -92,21 +107,36 @@ class Pages:
         # Get Sidebar data (Needs fixing)
         soup = BeautifulSoup(content,'html.parser')
 
-        sidebar = ""
+
+
+        # Get Current page information for scroll-to section of sidebar
+        sidebar_inner = ""
         for h2 in soup.find_all("h2"):
             val = str(h2.string)
             h2['id'] = val
-            sidebar += f"<li><a href='#{val}'>{val}</a></li>"
-
+            sidebar_inner += f"<li><a href='#{val}'>{val}</a></li>"
+        
+        # Iterate through current group and place every page into sidebar
+        sidebar = ""
+        for page in self.pages[group]:
+            pname = list(page.keys())[0]
+            ploc = page[pname].replace('md','html')
+            if pname == pagename:
+                sidebar += f'<li class="main"><a href="{self.site_url}/output/{ploc}">{pname}</a></li>'
+                sidebar += "<ul>"
+                sidebar += sidebar_inner
+                sidebar += "</ul>"
+            else:
+                sidebar += f'<li class="inactive"><a href="{self.site_url}/output/{ploc}">{pname}</a></li>'
 
         # Render output and write to file
-        output = template.render(content = content, sidebar = sidebar, css = self.css_files)
+        content = str(soup)
+        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url)
 
         with open(output_path, 'w') as f:
             f.write(output)
 
         return
-
 
 if __name__ == "__main__":
     pages = Pages('docs.yml')
