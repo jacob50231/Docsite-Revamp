@@ -104,16 +104,13 @@ class Pages:
         content = content.replace("<table>","<table class='table'>")
 
 
-        # Get Sidebar data (Needs fixing)
-        soup = BeautifulSoup(content,'html.parser')
-
-
 
         # Get Current page information for scroll-to section of sidebar
+        soup = BeautifulSoup(content,'html.parser')
         sidebar_inner = ""
         for h2 in soup.find_all("h2"):
             val = str(h2.string)
-            h2['id'] = val
+            h2['id'] = val # add id for sidebar to scroll to
             sidebar_inner += f"<li><a href='#{val}'>{val}</a></li>"
         
         # Iterate through current group and place every page into sidebar
