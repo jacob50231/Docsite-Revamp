@@ -60,6 +60,7 @@ class Pages:
             with open('links.yml') as link:
                 link_yml = safe_load(link)
             self.link_data = link_yml
+            
 
         except FileNotFoundError:
             print("No links.yml file found. Links will  be generated now.")
@@ -68,6 +69,7 @@ class Pages:
             with open('links.yml') as link:
                 link_yml = safe_load(link)
             self.link_data = link_yml
+            self.write_links_to_yaml()
             
 
         return
@@ -76,7 +78,7 @@ class Pages:
         for group,page_data in self.pages.items():
             for i in page_data:
                 for _,page_loc in i.items():
-                    self.links.append({'_'.join(page_loc.split('/')).replace('.md',''):'dist/' +slugify(''.join(page_loc.split('/')[-1])).replace('-md','.html')})
+                    self.links.append({str(page_loc.split('/')[0]+"_"+page_loc.split('/')[-1].replace('.md','')).lower():'dist/' +slugify(''.join(page_loc.split('/')[-1])).replace('-md','.html')})
         with open('links.yml','w+') as f:
             yml = safe_load(f)
             for link in self.links:
