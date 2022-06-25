@@ -4,6 +4,9 @@ from markdown import markdown
 from bs4 import BeautifulSoup
 from jinja2 import Template
 import sys
+from pathlib import Path
+import yaml
+from slugify import slugify
 
 def rmdir(dir):
     path = os.path.normpath(dir)
@@ -18,10 +21,13 @@ def rmdir(dir):
 
 
 class Pages:
-    def __init__(self,config_file):
+    def __init__(self,config_file,project_home_title):
         self.config_file = config_file
         self.pages = {}
         self.css_files = []
+        self.links = []
+        self.link_data = {}
+        self.base_dir = os.path.join(Path(__file__).resolve().parent.parent,project_home_title)
         self.read_yaml()
     
     def read_yaml(self):
@@ -29,16 +35,16 @@ class Pages:
             yml = safe_load(f)
 
         # Get Home Directory
+        yml['site_loc'] = self.base_dir
         self.home_directory = yml['site_loc']
-        
         # Get Site URL (Should be same as home directory for development)
-        self.site_url = yml['site_url']
+        self.site_url = self.base_dir
 
         # Get Location of HTML Template
-        self.template_path = self.home_directory + '/' + yml['template_path']
+        self.template_path = os.path.join(self.home_directory,yml['template_path'])
         
         # Get GDC Logo location
-        self.logo = self.site_url + '/' + yml['logo']
+        self.logo = os.path.join(self.home_directory,yml['logo'])
 
         # Get Pages
         for d in yml['pages']:
@@ -47,7 +53,34 @@ class Pages:
     
         # Get CSS file locations
         for f in yml['css_files']:
-            self.css_files.append(self.home_directory + "/" + f)
+            self.css_files.append(os.path.join(self.home_directory, f))
+
+        # Get Links
+        try:
+            with open('links.yml') as link:
+                link_yml = safe_load(link)
+            self.link_data = link_yml
+
+        except FileNotFoundError:
+            print("No links.yml file found. Links will  be generated now.")
+            self.write_links_to_yaml()
+        finally:
+            with open('links.yml') as link:
+                link_yml = safe_load(link)
+            self.link_data = link_yml
+            
+
+        return
+    # Write links to links.yml
+    def write_links_to_yaml(self):
+        for group,page_data in self.pages.items():
+            for i in page_data:
+                for _,page_loc in i.items():
+                    self.links.append({'_'.join(page_loc.split('/')).replace('.md',''):'dist/' +slugify(''.join(page_loc.split('/')[-1])).replace('-md','.html')})
+        with open('links.yml','w+') as f:
+            yml = safe_load(f)
+            for link in self.links:
+                yaml.dump(link,f)
 
         return
     
@@ -78,8 +111,10 @@ class Pages:
                 print("\t" + pagename + ": " + pageloc)
 
                 # Write to template and remove markdown file
-                self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename )
-                os.remove("output/" + pageloc)
+                os.makedirs("output/dist/",exist_ok=True)
+                self.write_to_template("output/" + pageloc, "output/" + 'dist/' + slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md",".html"), group, pagename )
+                print('***',pageloc)
+                os.remove(os.path.join("output" , pageloc))
 
         return
 
@@ -128,13 +163,13 @@ class Pages:
 
         # Render output and write to file
         content = str(soup)
-        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url)
+        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url,link=self.link_data)
 
         with open(output_path, 'w') as f:
             f.write(output)
 
         return
 
-if __name__ == "__main__":
-    pages = Pages('docs.yml')
-    pages.write_pages()
+# if __name__ == "__main__":
+#     pages = Pages('docs.yml','Docsite-Revamp')
+#     pages.write_pages()
