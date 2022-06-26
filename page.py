@@ -26,6 +26,7 @@ class Pages:
         self.pages = {}
         self.css_files = []
         self.links = []
+        self.siblings = {}
         self.link_data = {}
         self.base_dir = os.path.join(Path(__file__).resolve().parent.parent,project_home_title)
         self.read_yaml()
@@ -120,6 +121,29 @@ class Pages:
 
         return
 
+    #Build page Siblings 
+    def set_page_siblings(self):
+        
+        siblings = {}
+        for group in self.pages.keys():
+            siblings_group = []
+            for page in self.pages[group]:
+                [siblings_group.append(i) for i in page if i != page]
+            siblings[group] = siblings_group
+           
+        for group in siblings.keys():
+            a = {}
+            for page in siblings[group]:
+                current_page = page
+                siblings_group = [i for i in siblings[group] if i != current_page]
+                a[current_page] = siblings_group
+            self.siblings[group] = a
+                        
+        return
+    #Get siblings for current page: Can be used in the sidebar. ! Still needs fixing.
+    def get_page_siblings(self,group,page):
+        self.set_page_siblings()
+        return self.page_siblings[group][page]
 
     
             
@@ -174,4 +198,5 @@ class Pages:
 
 # if __name__ == "__main__":
 #     pages = Pages('docs.yml','Docsite-Revamp')
-#     pages.write_pages()
+#     pages.get_page_siblings()
+#     pages.pages
