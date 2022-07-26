@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 import yaml
 from slugify import slugify
+#from playground import add_playground
 
 def rmdir(dir):
     path = os.path.normpath(dir)
@@ -28,6 +29,7 @@ class Pages:
         self.links = []
         self.siblings = {}
         self.link_data = {}
+        self.search_obj = {}
         self.base_dir = os.path.join(Path(__file__).resolve().parent.parent,project_home_title)
         self.read_yaml()
     
@@ -37,7 +39,7 @@ class Pages:
 
         # Get Home Directory
         yml['site_loc'] = self.base_dir
-        self.home_directory = yml['site_loc']
+        self.home_directory = self.base_dir
         # Get Site URL (Should be same as home directory for development)
         self.site_url = self.base_dir
 
@@ -54,7 +56,7 @@ class Pages:
     
         # Get CSS file locations
         for f in yml['css_files']:
-            self.css_files.append(os.path.join(self.home_directory, f))
+            self.css_files.append(os.path.join('/', f))
 
         # Get Links
         try:
@@ -79,7 +81,7 @@ class Pages:
         for group,page_data in self.pages.items():
             for i in page_data:
                 for _,page_loc in i.items():
-                    self.links.append({str(page_loc.split('/')[0]+"_"+page_loc.split('/')[-1].replace('.md','')).lower():'dist/' +slugify(''.join(page_loc.split('/')[-1])).replace('-md','.html')})
+                    self.links.append({str(page_loc.split('/')[0]+"_"+page_loc.split('/')[-1].replace('.md','')).lower():'dist/' +slugify(''.join(page_loc.split('/')[-1])).replace('-md','' + '/index.html')})
         with open('links.yml','w+') as f:
             yml = safe_load(f)
             for link in self.links:
@@ -114,9 +116,10 @@ class Pages:
                 print("\t" + pagename + ": " + pageloc)
 
                 # Write to template and remove markdown file
-                os.makedirs("output/dist/",exist_ok=True)
-                self.write_to_template("output/" + pageloc, "output/" + 'dist/' + slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md",".html"), group, pagename )
-                print('***',pageloc)
+                slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
+                os.makedirs("output/dist/" + slug,exist_ok=True)
+                self.write_to_template("output/" + pageloc, "output/" + 'dist/' + slug +'/index.html', group, pagename )
+
                 os.remove(os.path.join("output" , pageloc))
 
         return
@@ -159,12 +162,18 @@ class Pages:
             content = f.read()
 
         # Convert markdown to html and add extras
-        content = markdown(content, extensions=['markdown.extensions.tables',"markdown.extensions.fenced_code"])
+        content = markdown(content, extensions=['markdown.extensions.tables',"markdown.extensions.fenced_code","markdown.extensions.attr_list"])
         content = content.replace("</h1>","</h1><hr>")
         content = content.replace("<h1>",'<h1><i class="fas fa-book"></i>   ')
         content = content.replace("<table>","<table class='table'>")
 
-
+        #playground_frame = '<iframe src="https://trinket.io/embed/python/10edf791b0?toggleCode=true&runOption=run" width="50%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>'
+        soup = BeautifulSoup(content, 'html.parser')
+        
+         #print(soup.pre.find_next())
+        headers = soup.find_all(['h1','h2','h3'])
+        for header in headers:
+            self.search_obj.update({header.string: output_path})
 
         # Get Current page information for scroll-to section of sidebar
         soup = BeautifulSoup(content,'html.parser')
@@ -180,23 +189,22 @@ class Pages:
             pname = list(page.keys())[0]
             ploc = page[pname].replace('md','html')
             if pname == pagename:
-                sidebar += f'<li class="main"><a href="{self.site_url}/output/{ploc}">{pname}</a></li>'
+                sidebar += f'<li class="main"><a href="{self.site_url}/{output_path}"</a></li>'
                 sidebar += "<ul>"
                 sidebar += sidebar_inner
                 sidebar += "</ul>"
             else:
-                sidebar += f'<li class="inactive"><a href="{self.site_url}/output/{ploc}">{pname}</a></li>'
+                sidebar += f'<li class="inactive"><a href="{self.site_url}/{output_path}"</a></li>'
+        # for code_tag in soup.find_all('code',attrs={'class':'language-python'}):
+        #     new_tag = soup.new_tag('py-repl')
+        #     new_tag.string = code_tag.string
+        #     code_tag.parent.insert_after(new_tag)
 
         # Render output and write to file
         content = str(soup)
-        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url,link=self.link_data)
-
+        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url,link=self.link_data,search_obj = self.search_obj)
+        print(output_path)
         with open(output_path, 'w') as f:
             f.write(output)
 
         return
-
-# if __name__ == "__main__":
-#     pages = Pages('docs.yml','Docsite-Revamp')
-#     pages.get_page_siblings()
-#     pages.pages
