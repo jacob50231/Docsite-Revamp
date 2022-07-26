@@ -188,13 +188,15 @@ class Pages:
         for page in self.pages[group]:
             pname = list(page.keys())[0]
             ploc = page[pname].replace('md','html')
+            pageloc = page[pname]
+            slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
             if pname == pagename:
-                sidebar += f'<li class="main"><a href="{self.site_url}/{output_path}"</a></li>'
+                sidebar += f'<li class="main"><a href="/output/dist/{slug}">{pname}</a></li>'
                 sidebar += "<ul>"
                 sidebar += sidebar_inner
                 sidebar += "</ul>"
             else:
-                sidebar += f'<li class="inactive"><a href="{self.site_url}/{output_path}"</a></li>'
+                sidebar += f'<li class="inactive"><a href="/output/dist/{slug}">{pname}</a></li>'
         # for code_tag in soup.find_all('code',attrs={'class':'language-python'}):
         #     new_tag = soup.new_tag('py-repl')
         #     new_tag.string = code_tag.string
