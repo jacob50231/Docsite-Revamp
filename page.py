@@ -9,6 +9,13 @@ import yaml
 from slugify import slugify
 #from playground import add_playground
 
+
+
+
+
+
+ROOT_DIR = 'output/dist/'
+
 def rmdir(dir):
     path = os.path.normpath(dir)
     for root, dirs, files in os.walk(path,topdown=False):
@@ -21,17 +28,33 @@ def rmdir(dir):
     return
 
 
+os.makedirs(os.path.join(ROOT_DIR,'encyclopedia/'), exist_ok=True)
+
+def write_encyclopedia(css,logo,pagename,encyclopedia_path,pedia_object,js,nav_pages):
+    os.makedirs(os.path.join(ROOT_DIR,'encyclopedia/'), exist_ok=True)
+    with open(encyclopedia_path,'r') as f:
+        template = f.read()
+        template = Template(template)
+    output = template.render(css=css,logo=logo,pagename=pagename,encyclopedia_pages=pedia_object,js=js,nav_pages=nav_pages)
+    with open(os.path.join(ROOT_DIR,'encyclopedia' , "index.html"), 'w') as f:
+        f.write(output)
+
+
 class Pages:
     def __init__(self,config_file,project_home_title):
         self.config_file = config_file
         self.pages = {}
         self.css_files = []
+        self.js_files = []
         self.links = []
         self.siblings = {}
         self.link_data = {}
         self.search_obj = {}
+        self.pedia_obj = {}
         self.base_dir = os.path.join(Path(__file__).resolve().parent.parent,project_home_title)
         self.read_yaml()
+        self.nav_pages = self.get_nav_pages()
+        #self.build_encyclopedia()
     
     def read_yaml(self):
         with open(self.config_file) as f:
@@ -45,6 +68,7 @@ class Pages:
 
         # Get Location of HTML Template
         self.template_path = os.path.join(self.home_directory,yml['template_path'])
+        self.encyclopedia_path = os.path.join(self.home_directory,yml['encyclopedia_path'])
         
         # Get GDC Logo location
         self.logo = os.path.join(self.home_directory,yml['logo'])
@@ -57,6 +81,10 @@ class Pages:
         # Get CSS file locations
         for f in yml['css_files']:
             self.css_files.append(os.path.join('/', f))
+
+        # Get Js Files
+        for f in yml['js_files']:
+            self.js_files.append(os.path.join('/', f))
 
         # Get Links
         try:
@@ -104,7 +132,6 @@ class Pages:
         
         # Iterate through self.pages dictionary and write each markdown file to template
         for group in self.pages.keys():
-            print(group)
             
             for page in self.pages[group]:
 
@@ -113,15 +140,32 @@ class Pages:
                 pageloc = page[pagename]
 
                 # Print page name, and location of markdown file 
-                print("\t" + pagename + ": " + pageloc)
+                #print("\t" + pagename + ": " + pageloc)
 
                 # Write to template and remove markdown file
                 slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
-                os.makedirs("output/dist/" + slug,exist_ok=True)
-                self.write_to_template("output/" + pageloc, "output/" + 'dist/' + slug +'/index.html', group, pagename )
+                os.makedirs(ROOT_DIR + slug,exist_ok=True)
+                
+                #print(self.pages.keys())
+                print(f"Writing Markdown🔄: {pagename} to {ROOT_DIR + slug + '/index.html'}")
 
-                os.remove(os.path.join("output" , pageloc))
+                self.write_to_template("output/" + pageloc, ROOT_DIR + slug +'/index.html', group, pagename)
+                print(f"Done......\nMarkdown written to template✅")
+            if group == "EncyclopediaEntries":
+                for page in self.pages["EncyclopediaEntries"]:
+                    # Get name of current page, and it's location
+                    pagename = list(page.keys())[0]
+                    pageloc = page[pagename]
+                    
+                    #slugify the url
+                    slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
+                    self.pedia_obj[pagename] = ROOT_DIR + slug
 
+            write_encyclopedia(css = self.css_files, logo = self.logo, pagename = pagename,encyclopedia_path = self.encyclopedia_path,pedia_object = self.pedia_obj,js=self.js_files,nav_pages = self.nav_pages)
+
+                
+        os.remove(os.path.join("output" , pageloc))
+        #print(self.nav_pages)
         return
 
     #Build page Siblings 
@@ -148,8 +192,23 @@ class Pages:
         self.set_page_siblings()
         return self.page_siblings[group][page]
 
-    
-            
+    def get_nav_pages(self):
+        nav_pages = {}
+        for group in self.pages.keys():
+            for page in self.pages[group]:
+                pname = list(page.keys())[0]
+                ploc = page[pname].replace('md','html')
+                pageloc = page[pname]
+                slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
+                # ?  This  Sub pages in navbar😎
+                if group in list(nav_pages.keys()):
+                        nav_pages[group].append({pname:f"{ROOT_DIR}{slug}"})               
+                else:
+                    nav_pages[group] =[]
+        # print(nav_pages)
+        return nav_pages
+        
+
     def write_to_template(self,markdown_path,output_path,group,pagename):
 
         # Get Jinja HTML Template
@@ -184,6 +243,8 @@ class Pages:
             sidebar_inner += f"<li><a href='#{val}'>{val}</a></li>"
         
         # Iterate through current group and place every page into sidebar
+      
+            
         sidebar = ""
         for page in self.pages[group]:
             pname = list(page.keys())[0]
@@ -192,6 +253,7 @@ class Pages:
             slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
             if pname == pagename:
                 sidebar += f'<li class="main"><a href="/output/dist/{slug}">{pname}</a></li>'
+                
                 sidebar += "<ul>"
                 sidebar += sidebar_inner
                 sidebar += "</ul>"
@@ -203,10 +265,11 @@ class Pages:
         #     code_tag.parent.insert_after(new_tag)
 
         # Render output and write to file
+
         content = str(soup)
-        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url,link=self.link_data,search_obj = self.search_obj)
-        print(output_path)
+        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url,link=self.link_data,search_obj = self.search_obj,nav_pages=self.nav_pages)
+        #print(output_path)
         with open(output_path, 'w') as f:
             f.write(output)
-
+        
         return
