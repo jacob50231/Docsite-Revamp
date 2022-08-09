@@ -115,7 +115,11 @@ site_name: GDC Docs
 site_url: /home/jacob/Work/Docsite-Revamp
 site_loc: /home/jacob/Work/Docsite-Revamp
 template_path: templates/template.html
+encyclopedia_path: templates/encyclopedia.html
 logo: img/nih-header-logo-color.png
 css_files:
   - css/styles.css
   - css/docs.css
+  - css/encyclopedia.css
+js_files:
+  - js/encyclopedia.js

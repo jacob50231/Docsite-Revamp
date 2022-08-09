@@ -4,6 +4,10 @@ from markdown import markdown
 from bs4 import BeautifulSoup
 from jinja2 import Template
 import sys
+from pathlib import Path
+import yaml
+from slugify import slugify
+
 
 def rmdir(dir):
     path = os.path.normpath(dir)
@@ -17,12 +21,21 @@ def rmdir(dir):
     return
 
 
+
 class Pages:
+        
     def __init__(self,config_file):
         self.config_file = config_file
         self.pages = {}
         self.css_files = []
+        self.js_files = []
+        self.links = []
+        self.siblings = {}
+        self.link_data = {}
+        self.search_obj = []
+        self.pedia_obj = {}
         self.read_yaml()
+        self.nav_pages = self.get_nav_pages()
     
     def read_yaml(self):
         with open(self.config_file) as f:
@@ -35,10 +48,11 @@ class Pages:
         self.site_url = yml['site_url']
 
         # Get Location of HTML Template
-        self.template_path = self.home_directory + '/' + yml['template_path']
+        self.template_path = os.path.join(self.home_directory,yml['template_path'])
+        self.encyclopedia_path = os.path.join(self.home_directory,yml['encyclopedia_path'])
         
         # Get GDC Logo location
-        self.logo = self.site_url + '/' + yml['logo']
+        self.logo = os.path.join(self.home_directory,yml['logo'])
 
         # Get Pages
         for d in yml['pages']:
@@ -47,10 +61,43 @@ class Pages:
     
         # Get CSS file locations
         for f in yml['css_files']:
-            self.css_files.append(self.home_directory + "/" + f)
+            self.css_files.append(os.path.join(self.site_url, f))
+
+        # Get Js Files
+        for f in yml['js_files']:
+            self.js_files.append(os.path.join(self.site_url, f))
+            
+        self.link_data = self.pages
 
         return
+
+    def get_nav_pages(self):
+        nav_pages = {}
+        for group in self.pages.keys():
+            for page in self.pages[group]:
+
+                # Get Page Name
+                pname = list(page.keys())[0]
+
+                # Get Page Location
+                ploc = page[pname].replace('md','html')
+
+                # Append to navigation pages object for use in top bar
+                if group in list(nav_pages.keys()):
+                    nav_pages[group].append({pname:f"{self.site_url}/output/{ploc}"})               
+                else:
+                    nav_pages[group] =[{pname:f"{self.site_url}/output/{ploc}"}]
+        return nav_pages
     
+    
+    def write_encyclopedia(self,css,logo,pagename,encyclopedia_path,pedia_object,js,nav_pages):
+        with open(encyclopedia_path,'r') as f:
+            template = f.read()
+            template = Template(template)
+        output = template.render(css=css,logo=logo,pagename=pagename,encyclopedia_pages=pedia_object,js=js,nav_pages=nav_pages)
+        with open(os.path.join(self.home_directory,'output','Encyclopedia' , "index.html"), 'w') as f:
+            f.write(output)
+
     
     def write_pages(self):
 
@@ -75,16 +122,25 @@ class Pages:
                 pageloc = page[pagename]
 
                 # Print page name, and location of markdown file 
-                print("\t" + pagename + ": " + pageloc)
+                print(f"Writing Markdown🔄: {pagename} to {self.home_directory + pageloc}")
 
                 # Write to template and remove markdown file
-                self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename )
+                self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename, )
                 os.remove("output/" + pageloc)
+            
+            if group == "EncyclopediaEntries":
+                for page in self.pages["EncyclopediaEntries"]:
+                    # Get name of current page, and it's location
+                    pagename = list(page.keys())[0]
+                    pageloc = page[pagename]
+                    
+                    #slugify the url
+                    slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
+                    self.pedia_obj[pagename] = self.site_url + '/' + slug
+                self.write_encyclopedia(css = self.css_files, logo = self.logo, pagename = pagename,encyclopedia_path = self.encyclopedia_path,pedia_object = self.pedia_obj,js=self.js_files,nav_pages = self.nav_pages)
 
         return
 
-
-    
             
     def write_to_template(self,markdown_path,output_path,group,pagename):
 
@@ -107,6 +163,13 @@ class Pages:
 
         # Get Current page information for scroll-to section of sidebar
         soup = BeautifulSoup(content,'html.parser')
+
+        # Update Search Object
+        headers = soup.find_all(['h1','h2'])
+        for header in headers:
+            self.search_obj.append({'name':header.text, 'location':output_path})
+
+        # Create Sidebar
         sidebar_inner = ""
         for h2 in soup.find_all("h2"):
             val = str(h2.string)
@@ -128,7 +191,7 @@ class Pages:
 
         # Render output and write to file
         content = str(soup)
-        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url)
+        output = template.render(content = content, sidebar = sidebar, css = self.css_files, logo = self.logo, pagename = pagename, site_url = self.site_url, nav_pages = self.nav_pages)
 
         with open(output_path, 'w') as f:
             f.write(output)
@@ -138,3 +201,5 @@ class Pages:
 if __name__ == "__main__":
     pages = Pages('docs.yml')
     pages.write_pages()
+    with open("tmp.js",'w') as f:
+        f.write("const searchData = " + str(pages.search_obj))
