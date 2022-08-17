@@ -50,6 +50,7 @@ class Pages:
         # Get Location of HTML Template
         self.template_path = os.path.join(self.home_directory,yml['template_path'])
         self.encyclopedia_path = os.path.join(self.home_directory,yml['encyclopedia_path'])
+        self.index_template = os.path.join(self.home_directory,yml['index_template'])
         
         # Get GDC Logo location
         self.logo = os.path.join(self.home_directory,yml['logo'])
@@ -97,6 +98,15 @@ class Pages:
         output = template.render(css=css,logo=logo,pagename=pagename,encyclopedia_pages=pedia_object,js=js,nav_pages=nav_pages)
         with open(os.path.join(self.home_directory,'output','Encyclopedia' , "index.html"), 'w') as f:
             f.write(output)
+    
+    def write_homepage(self):
+        with open(self.index_template,'r') as f:
+            template = f.read()
+            template = Template(template)
+        output = template.render(nav_pages = self.nav_pages, js = self.js_files)
+        with open(os.path.join(self.home_directory,'output', "index.html"), 'w') as f:
+            f.write(output)
+        os.remove(os.path.join(self.home_directory,'output',"index.md"))
 
     
     def write_pages(self):
@@ -114,30 +124,35 @@ class Pages:
         # Iterate through self.pages dictionary and write each markdown file to template
         for group in self.pages.keys():
             print(group)
+
+            if group == "Home":
+                self.write_homepage()
+
+            else:
             
-            for page in self.pages[group]:
+                for page in self.pages[group]:
 
-                # Get name of current page, and it's location
-                pagename = list(page.keys())[0]
-                pageloc = page[pagename]
-
-                # Print page name, and location of markdown file 
-                print(f"Writing Markdown🔄: {pagename} to {self.home_directory + pageloc}")
-
-                # Write to template and remove markdown file
-                self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename, )
-                os.remove("output/" + pageloc)
-            
-            if group == "EncyclopediaEntries":
-                for page in self.pages["EncyclopediaEntries"]:
                     # Get name of current page, and it's location
                     pagename = list(page.keys())[0]
                     pageloc = page[pagename]
-                    
-                    #slugify the url
-                    slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
-                    self.pedia_obj[pagename] = self.site_url + '/' + slug
-                self.write_encyclopedia(css = self.css_files, logo = self.logo, pagename = pagename,encyclopedia_path = self.encyclopedia_path,pedia_object = self.pedia_obj,js=self.js_files,nav_pages = self.nav_pages)
+
+                    # Print page name, and location of markdown file 
+                    print(f"Writing Markdown🔄: {pagename} to {self.home_directory + pageloc}")
+
+                    # Write to template and remove markdown file
+                    self.write_to_template("output/" + pageloc, "output/" + pageloc.replace("md","html"), group, pagename, )
+                    os.remove("output/" + pageloc)
+                
+                if group == "EncyclopediaEntries":
+                    for page in self.pages["EncyclopediaEntries"]:
+                        # Get name of current page, and it's location
+                        pagename = list(page.keys())[0]
+                        pageloc = page[pagename]
+                        
+                        #slugify the url
+                        slug = slugify(pageloc.split('/')[0] +'/' + pageloc.split('/')[-1]).replace("-md","")
+                        self.pedia_obj[pagename] = self.site_url + '/' + slug
+                    self.write_encyclopedia(css = self.css_files, logo = self.logo, pagename = pagename,encyclopedia_path = self.encyclopedia_path,pedia_object = self.pedia_obj,js=self.js_files,nav_pages = self.nav_pages)
 
         return
 
@@ -203,3 +218,4 @@ if __name__ == "__main__":
     pages.write_pages()
     with open("tmp.js",'w') as f:
         f.write("const searchData = " + str(pages.search_obj))
+    print(pages.pages)

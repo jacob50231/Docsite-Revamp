@@ -236,24 +236,60 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav navbar-center me-auto">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"
-                    >Home</a
-                  >
+                  <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/output/dist/api-index">API</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                   <a
-                    class="nav-link"
-                    href="/output/dist/data-submission-portal-index/"
-                    >Data Submission</a
+                    aria-current="page"
+                    href="/output/dist/api-getting-started/"
+                    class="nav-link dropdown-toggle"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    >API
+                  </a>
+
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
                   >
+                    {% for page in nav_pages['API'] %} {% for key,value in
+                    page.items() %}
+                    <li>
+                      <a class="dropdown-item" href="{{ value }}">{{ key }}</a>
+                    </li>
+                    {% endfor%} {% endfor%}
+                  </ul>
                 </li>
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
-                    href="/output/dist/data-portal-index"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    href="/output/dist/data-submission-portal-data-submission-process/"
+                  >
+                    Data Submission
+                  </a>
+
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    {% for page in nav_pages['Data Submission'] %} {% for
+                    key,value in page.items() %}
+                    <li>
+                      <a class="dropdown-item" href="{{ value }}">{{ key }}</a>
+                    </li>
+                    {% endfor%} {% endfor%}
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="/output/dist/data-transfer-tool-index/"
                     id="navbarDropdownMenuLink"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -261,36 +297,70 @@
                   >
                     Data Transfer Tool
                   </a>
+
                   <ul
                     class="dropdown-menu"
                     aria-labelledby="navbarDropdownMenuLink"
                   >
-                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    {% for page in nav_pages['Data Transfer Tool'] %} {% for
+                    key,value in page.items() %}
                     <li>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="{{ value }}">{{ key }}</a>
                     </li>
+                    {% endfor %} {% endfor%}
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    href="/output/dist/data-dictionary-index/"
+                    class="nav-link dropdown-toggle"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Data Dictionary
+                  </a>
+
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    {% for page in nav_pages['Data Dictionary'] %} {% for
+                    key,value in page.items() %}
                     <li>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <a class="dropdown-item" href="{{ value }}">{{ key }}</a>
                     </li>
+                    {% endfor%} {% endfor%}
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    href="/output/dist/data-getting-started/"
+                    >Data</a
+                  >
+
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    {% for page in nav_pages['Data'] %} {% for key,value in
+                    page.items() %}
+                    <li>
+                      <a class="dropdown-item" href="{{ value }}">{{ key }}</a>
+                    </li>
+                    {% endfor%} {% endfor%}
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/output/dist/data-dictionary-index"
-                    >Data Dictionary</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/output/dist/data-index">Data</a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    href="/output/dist/encyclopedia-affymetrix-snp-6-0"
-                    >Encyclopedia</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                  <a class="nav-link" href="{{ site_url }}/output/Encyclopedia/index.html">
+                    Encyclopedia
+                  </a>
                 </li>
               </ul>
             </div>
@@ -476,7 +546,9 @@
       </div>
     </footer>
 
-    <script src="./tmp.js"></script>
+    {% for f in js %}
+    <script type="text/javascript" src="{{ f }}"></script>
+    {% endfor %}
 
     <script>
       /* When the user clicks on the button, 
